@@ -1,4 +1,4 @@
-class TouristTrapper
+class YelpTouristTrapper
   CATEGORIES = [
     "ticketsales", "magicians", "tours", "landmarks", "giftshops", "souvenirs", "amusementparks",
     "bikerentals", "zoos", "aquariums", "boatcharters", "hotelstravel", "trainstations", "pedicabs",
