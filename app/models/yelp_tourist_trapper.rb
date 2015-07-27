@@ -29,6 +29,7 @@ class YelpTouristTrapper
     data = {}
     data[:neighborhoods] = get_neighborhoods
     data[:landmarks] = get_landmarks
+    data[:coords] = get_coords
     data
   end
 
@@ -41,7 +42,10 @@ class YelpTouristTrapper
   end
 
   def get_coords
-    puts self.tourist_traps
+    coords = {}
+    coords[:latitude] = self.tourist_traps.first.location.coordinate.latitude
+    coords[:longitude] = self.tourist_traps.first.location.coordinate.longitude
+    coords
   end
 
 end
