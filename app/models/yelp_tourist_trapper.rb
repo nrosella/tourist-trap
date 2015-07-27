@@ -1,4 +1,6 @@
 class YelpTouristTrapper
+  attr_accessor :tourist_traps
+
   CATEGORIES = [
     "ticketsales", "magicians", "tours", "landmarks", "giftshops", "souvenirs", "amusementparks",
     "bikerentals", "zoos", "aquariums", "boatcharters", "hotelstravel", "trainstations", "pedicabs",
@@ -12,38 +14,34 @@ class YelpTouristTrapper
     params = {category_filter: CATEGORIES, radius_filter: RADIUS }
     coords = {latitude: lat, longitude: lng}
     results = Yelp.client.search_by_coordinates(coords, LOCALE, params)
-    tourist_traps = results.businesses
-    trap_count = results.total
-    trap_names = results.businesses.collect{|r| r.name}.join(", ")
-
-    puts "You are near #{trap_count} tourist traps: #{trap_names}."
-    build_data(tourist_traps)
+    self.tourist_traps = results.businesses
+    build_data
   end
 
   def search_by_neighborhood(neighborhood)
     params = {category_filter: CATEGORIES, radius_filter: RADIUS}
     results = Yelp.client.search(neighborhood, params, LOCALE)
-    tourist_traps = results.businesses
-    trap_count = results.total
-    trap_names = results.businesses.collect{|r| r.name}.join(", ")
-    
-    puts "#{neighborhood} has #{trap_count} Tourist Traps, including #{trap_names}."
-    build_data(tourist_traps)
+    self.tourist_traps = results.businesses
+    build_data
   end
 
-  def build_data(tourist_traps)
-    tourist_traps.each.with
-    data[:neighborhoods] = get_neighborhoods(tourist_traps)
-    data[:landmarks] = get_landmarks(tourist_traps)
+  def build_data
+    data = {}
+    data[:neighborhoods] = get_neighborhoods
+    data[:landmarks] = get_landmarks
     data
   end
 
-  def get_neighborhoods(tourist_traps)
-    tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
+  def get_neighborhoods
+    self.tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
   end  
 
-  def get_landmarks(tourist_traps)
-    tourist_traps.select{|trap| trap.categories.flatten.include?("landmarks")}.collect{|trap| trap.name}
+  def get_landmarks
+    self.tourist_traps.select{|trap| trap.categories.flatten.include?("landmarks")}.collect{|trap| trap.name}
+  end
+
+  def get_coords
+    puts self.tourist_traps
   end
 
 end
