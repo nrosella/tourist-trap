@@ -1,6 +1,8 @@
-class YelpTouristTrapper
+class TouristTrapper
   CATEGORIES = [
-    "ticketsales", "hotels", "magicians", "tours", "landmarks", "giftshops", "souvenirs"
+    "ticketsales", "magicians", "tours", "landmarks", "giftshops", "souvenirs", "amusementparks",
+    "bikerentals", "zoos", "aquariums", "boatcharters", "hotelstravel", "trainstations", "pedicabs",
+     "travelservices", "localflavor"
   ].join(",")
   LOCALE = {lang: "en"}
   RADIUS = 200
@@ -17,11 +19,10 @@ class YelpTouristTrapper
 
   def self.search_by_neighborhood(neighborhood)
     params = {category_filter: CATEGORIES, radius_filter: RADIUS}
-    results = Yelp.client.search(LOCATION, params, LOCALE)
+    results = Yelp.client.search(neighborhood, params, LOCALE)
     trap_count = results.total
     trap_names = results.businesses.collect{|r| r.name}.join(", ")
     "#{neighborhood} has #{trap_count} Tourist Traps, including #{trap_names}."
   end
-
 
 end

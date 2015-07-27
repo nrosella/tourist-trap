@@ -1,3 +1,0 @@
-class YelpTouristTrap
-  
-end
