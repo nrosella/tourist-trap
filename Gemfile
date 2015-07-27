@@ -29,6 +29,9 @@ gem 'figaro'
 # Yelp api
 gem 'yelp'
 
+# Causes rails console to open pry
+gem 'pry-rails', :group => :development
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
