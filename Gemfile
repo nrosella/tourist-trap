@@ -32,6 +32,9 @@ gem 'yelp'
 # Causes rails console to open pry
 gem 'pry-rails', :group => :development
 
+# parses html pages
+gem 'nokogiri'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
