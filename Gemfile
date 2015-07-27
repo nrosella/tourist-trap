@@ -29,6 +29,9 @@ gem 'figaro'
 # Yelp api
 gem 'yelp'
 
+# Instagram api
+gem 'instagram'
+
 # Causes rails console to open pry
 gem 'pry-rails', :group => :development
 
