@@ -1,3 +1,22 @@
 <h1>And the results are in!</h1>
-<p>In the neighborhood you are heading there are approximately: </p><br>
-<p><%= @results %></p>
+
+<p><%= @results.neighborhoods.first%> has the following tourist attractions: </p>
+<p>Landmarks: <%= @results.landmarks.count %><p>
+<p>Tours: <%= @results.tours.count %></p>
+<p>Magicians: <%= @results.magicians.count %></p>
+<p>Gift Shops: <%= @results.gift_shops.count %></p>
+<p>Souvenir Shops: <%= @results.souvenirs.count %></p>
+<p>Ticket Sales: <%= @results.ticket_sales.count %></p>
+<p>Amusement Parks: <%= @results.amusement_parks.count %></p>
+<p>Bike Rentals: <%= @results.bike_rentals.count %></p>
+<p>Zoos: <%= @results.zoos.count %></p>
+<p>Aquariam: <%= @results.aquariums.count %></p>
+<p>Boat Charters: <%= @results.boat_charters.count %></p>
+<p>Hotels: <%= @results.hotels_travel.count %></p>
+<p>Train Stations: <%= @results.train_stations.count %></p>
+<p>Pedicab Station: <%= @results.pedicabs.count %></p>
+<p>Travel Services: <%= @results.travel_services.count %></p>
+<p>Local Flavor: <%= @results.local_flavor.count %></p>
+<p>And a total sum of <%= @instagram_tags %> Instagram tags</p>
+
+<p>Giving it an overall tourist rating of: </p>

@@ -1,11 +1,11 @@
 class TagCreator
 
 	def convert_hash_to_tag(result_hash)
-		if result_hash[:landmarks][0]
-			new_tag = result_hash[:landmarks][0]
+		if result_hash.landmarks.first
+			new_tag = result_hash.landmarks.first
 			converted = new_tag.split(/\s/).join("").downcase
 		else
-			new_tag = result_hash[:neighborhoods][0]
+			new_tag = result_hash.neighborhoods.first
 			converted = new_tag.split(/\s/).join("").downcase
 		end
 		converted

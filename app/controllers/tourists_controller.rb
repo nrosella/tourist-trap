@@ -5,9 +5,11 @@ class TouristsController < ApplicationController
 
   def create
     if !coord_params.empty?
-      @results = YelpTouristTrapper.new.search_by_coords(coord_params[:lat].to_f, coord_params[:lon].to_f)
+      @results = YelpTouristTrapper.new
+      @results.search_by_coords(coord_params[:lat].to_f, coord_params[:lon].to_f)
     else
-      @results = YelpTouristTrapper.new.search_by_neighborhood(neighborhood_params[:neighborhood])
+      @results = YelpTouristTrapper.new
+      @results.search_by_neighborhood(neighborhood_params[:neighborhood])
     end
     @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
     @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
