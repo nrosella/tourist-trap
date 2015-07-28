@@ -55,13 +55,14 @@ class YelpTouristTrapper
     self.class.famous_locations.each do |fl|
       if location.class == Hash
         params = {term: fl, limit: 5, radius_filter: RADIUS}
-        results = Yelp.client.search_by_coordinates(location, params, LOCALE)
+        businesses = Yelp.client.search_by_coordinates(location, params, LOCALE).businesses
       else
         neighborhood = /(.+), Manhattan|, Brooklyn/.match(location)[1]
         params = {term: fl, limit: 5, cll: self.coords}
         businesses = Yelp.client.search(location, params, LOCALE).businesses
         businesses = businesses.select{|b| b.location.respond_to?("neighborhoods") && b.location.neighborhoods.include?(neighborhood)}
       end
+
       business_names = businesses.collect{|b| b.name}
       self.famous_locations << fl if business_names.include?(fl)
     end    
