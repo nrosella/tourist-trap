@@ -8,14 +8,13 @@ class YelpTouristTrapper
     CSV.foreach("app/models/tourist_traps/categories.csv").first
   end
 
+  def self.chains
+    CSV.foreach("app/models/tourist_traps/chains.csv").first
+  end
+
   LOCALE = {lang: "en"}
   RADIUS = 200
-
   LOCATION = "New York"
-  CHAINS = [
-    "TGI Friday's", "Olive Garden", "Sbarro", "Subway", "Guy's American Kitchen & Bar",
-    "Hooters", "Jimmy Buffett's Margaritaville", "Rainforest Café", "Dinosaur BBQ", "Virgil's"
-  ]
 
   FAMOUS_LOCATIONS = [
     "Katz's Delicatessen", "Coyote Ugly Saloon", "The Rainbow Room", "Joe's Pizza", "Buddakan",
