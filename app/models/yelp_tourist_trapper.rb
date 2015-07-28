@@ -1,6 +1,6 @@
 class YelpTouristTrapper
   require 'csv'
-  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :chains, :famous_locations
+  attr_accessor :coords, :neighborhoods, :tourist_traps, :chains, :famous_locations
   attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
   :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
   include NeighborhoodParser::InstanceMethods
@@ -12,7 +12,17 @@ class YelpTouristTrapper
   def initialize   
     @coords = {}   
     @neighborhoods = []    
-  end      
+  end 
+
+  def attributes
+    self.methods.select do |method|
+      /\w+={1}/.match(method)
+    end
+  end
+
+  def category_attributes
+    self.attributes.reject{|a| /coords=|neighborhoods=|tourist_traps=|chains=|famous_locations=/.match(a.to_s)}
+  end
    
   def self.categories    
     CSV.foreach("app/models/tourist_traps/categories.csv").first.join(",")
@@ -45,9 +55,14 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhood
     self.coords = get_coords
-    build_famous_locations_data(neighborhood)
-    build_chains_data(neighborhood)
-    build_category_data
+    build_data(neighborhood)
+  end
+
+  def build_data(location)
+    build_famous_locations_data(location)
+    build_chains_data(location)
+    build_category_data  
+    self  
   end
 
   def build_famous_locations_data(location)
@@ -84,22 +99,10 @@ class YelpTouristTrapper
   end
 
   def build_category_data
-    self.landmarks = get_category("landmarks")
-    self.tours = get_category("tours")
-    self.magicians = get_category("magicians")
-    self.gift_shops = get_category("giftshops")
-    self.souvenirs = get_category("souvenirs")
-    self.ticket_sales = get_category("ticketsales")
-    self.amusement_parks = get_category("amusementparks")
-    self.bike_rentals = get_category("bikerentals")
-    self.zoos = get_category("zoos")
-    self.aquariums = get_category("aquariums")
-    self.boat_charters = get_category("boatcharters")
-    self.hotels_travel = get_category("hotelstravel")
-    self.train_stations = get_category("trainstations")
-    self.pedicabs = get_category("pedicabs")
-    self.travel_services = get_category("travelservices")
-    self.local_flavor = get_category("localflavor")
+    self.category_attributes.each do |ca|
+      category = ca.to_s.gsub("_","").delete("=")
+      self.send(ca, get_category(category))
+    end
   end
 
   def get_category(category)
