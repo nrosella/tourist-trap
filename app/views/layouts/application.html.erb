@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Friend List</title>
+  <title>Tourist Trap</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,6 +9,7 @@
 <body>
 	<div class="container">
 	   <div class="navbar">
+     <%= render "layouts/navigation" %>
 	   </div>
        <%= yield %>
   </div>
