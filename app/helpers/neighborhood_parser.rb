@@ -1,9 +1,9 @@
 module NeighborhoodParser
-  require 'open-uri'
+  require 'csv'
   
   module InstanceMethods
     def parse_neighborhood(neighborhood)
-      binding.pry
+      manhattan_neighborhoods = CSV.foreach("lib/neighborhoods/manhattan.csv").first
     end
     
   end
