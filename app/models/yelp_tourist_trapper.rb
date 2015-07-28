@@ -54,7 +54,7 @@ class YelpTouristTrapper
     results = Yelp.client.search(neighborhood, params, LOCALE)
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhood
-    self.coords = get_coords
+    self.coords = get_coords(results)
     build_data(neighborhood)
   end
 
@@ -113,11 +113,8 @@ class YelpTouristTrapper
     self.tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
   end  
 
-  def get_coords
-    coords = {}
-    coords[:latitude] = self.tourist_traps.first.location.coordinate.latitude
-    coords[:longitude] = self.tourist_traps.first.location.coordinate.longitude
-    coords
+  def get_coords(results)
+    {latitude: results.region.center.latitude, longitude: results.region.center.latitude}
   end
 
 end
