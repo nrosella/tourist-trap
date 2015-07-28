@@ -33,6 +33,7 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
+    build_chains_data(self.coords)
     build_category_data
   end
 
@@ -51,11 +52,16 @@ class YelpTouristTrapper
     self.chains = {}
     self.class.chains.each do |chain|
       params = {term: chain, limit: 10}
-      results = Yelp.client.search(location, params, LOCALE)
+      if location.class == Hash
+        results = Yelp.client.search_by_coordinates(location, params, LOCALE)
+      else
+        results = Yelp.client.search(location, params, LOCALE)
+      end
       business_names = results.businesses.collect{|b| b.name}
       matches = business_names.select{|bn| bn == chain}.size
       chains[chain.to_sym] = matches
-    end
+    end      
+
   end
 
   def build_category_data
