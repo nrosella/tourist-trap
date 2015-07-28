@@ -1,0 +1,17 @@
+<div class="col-md-5 jumbotron">
+	<h3>Create a new todo</h3>
+
+<%= form_tag(tourists_path, method: "post") do %>
+  <%= label_tag("Enter a neighborhood:") %>
+  <%= text_field_tag('neighborhood') %>
+  <%= submit_tag "Are there any tourists?" %>
+<% end %>
+
+
+<%= form_tag(tourists_path, method: "post") do %>
+  <%= label_tag("Enter a latitude:") %>
+  <%= text_field_tag('coords_lat') %>
+  <%= label_tag("Enter a longitude:") %>
+  <%= text_field_tag('coords_lon') %>
+  <%= submit_tag "Are there any tourists?" %>
+<% end %>
