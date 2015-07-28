@@ -1,13 +1,13 @@
 class YelpTouristTrapper
-  attr_accessor :tourist_traps, :data, :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
-  :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotelstravel, :train_stations, :pedicabs
+  require 'csv'
+  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
+  :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
   include NeighborhoodParser::InstanceMethods
 
-  CATEGORIES = [
-    "ticketsales", "magicians", "tours", "landmarks", "giftshops", "souvenirs", "amusementparks",
-    "bikerentals", "zoos", "aquariums", "boatcharters", "hotelstravel", "trainstations", "pedicabs",
-     "travelservices", "localflavor"
-  ].join(",")
+  def self.categories 
+    CSV.foreach("app/models/tourist_traps/categories.csv").first
+  end
+
   LOCALE = {lang: "en"}
   RADIUS = 200
   LOCATION = "New York"
@@ -28,7 +28,7 @@ class YelpTouristTrapper
   end
 
   def search_by_coords(lat, lng)
-    params = {category_filter: CATEGORIES, radius_filter: RADIUS }
+    params = {category_filter: self.class.categories.join(","), radius_filter: RADIUS }
     coords = {latitude: lat, longitude: lng}
     results = Yelp.client.search_by_coordinates(coords, LOCALE, params)
     self.tourist_traps = results.businesses
@@ -39,7 +39,7 @@ class YelpTouristTrapper
 
   def search_by_neighborhood(neighborhood)
     neighborhood = parse_neighborhood(neighborhood)
-    params = {category_filter: CATEGORIES, radius_filter: RADIUS}
+    params = {category_filter: self.class.categories.join(","), radius_filter: RADIUS}
     results = Yelp.client.search(neighborhood, params, LOCALE)
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhoods
@@ -52,7 +52,7 @@ class YelpTouristTrapper
     self.landmarks = get_category("landmarks")
     self.tours = get_category("tours")
     self.magicians = get_category("magicians")
-    self.giftshops = get_category("giftshops")
+    self.gift_shops = get_category("giftshops")
     self.souvenirs = get_category("souvenirs")
     self.ticket_sales = get_category("ticketsales")
     self.amusement_parks = get_category("amusementparks")
