@@ -1,5 +1,6 @@
 class YelpTouristTrapper
-  attr_accessor :tourist_traps
+  attr_accessor :tourist_traps, :data
+  include NeighborhoodParser::InstanceMethods
 
   CATEGORIES = [
     "ticketsales", "magicians", "tours", "landmarks", "giftshops", "souvenirs", "amusementparks",
@@ -9,20 +10,31 @@ class YelpTouristTrapper
   LOCALE = {lang: "en"}
   RADIUS = 200
   LOCATION = "New York"
+  CHAINS = [
+    "TGI Friday's", "Olive Garden", "Sbarro", "Subway", "Guy's American Kitchen & Bar",
+    "Hooters", "Jimmy Buffett's Margaritaville", "Rainforest Café", "Dinosaur BBQ", "Virgil's"
+  ]
+
+  FAMOUS_LOCATIONS = [
+    "Katz's Delicatessen", "Coyote Ugly Saloon", "The Rainbow Room", "Joe's Pizza", "Buddakan",
+    "Smith & Wollenksy's", "Central Park Boathouse", "SoHo House", "Café Grumpy", "Tom's Restaurant", 
+    "21 Club", "Lenny's Pizza", "Café Lalo", "New York Public Library", "McGee's Pub"
+  ]
 
   def search_by_coords(lat, lng)
     params = {category_filter: CATEGORIES, radius_filter: RADIUS }
     coords = {latitude: lat, longitude: lng}
     results = Yelp.client.search_by_coordinates(coords, LOCALE, params)
     self.tourist_traps = results.businesses
-    build_data
+    self.data = build_data
   end
 
   def search_by_neighborhood(neighborhood)
+    neighborhood = parse_neighborhood(neighborhood)
     params = {category_filter: CATEGORIES, radius_filter: RADIUS}
     results = Yelp.client.search(neighborhood, params, LOCALE)
     self.tourist_traps = results.businesses
-    build_data
+    self.data = build_data
   end
 
   def build_data
