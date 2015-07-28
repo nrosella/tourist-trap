@@ -1,6 +1,6 @@
 class YelpTouristTrapper
   require 'csv'
-  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :chains
+  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :chains, :famous_locations
   attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
   :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
   include NeighborhoodParser::InstanceMethods
@@ -33,6 +33,7 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
+    build_famous_locations_data(self.coords)
     build_chains_data(self.coords)
     build_category_data
   end
@@ -44,14 +45,32 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhood
     self.coords = get_coords
+    build_famous_locations_data(neighborhood)
     build_chains_data(neighborhood)
     build_category_data
+  end
+
+  def build_famous_locations_data(location)
+    self.famous_locations = []
+    self.class.famous_locations.each do |fl|
+      if location.class == Hash
+        params = {term: fl, limit: 5, radius_filter: RADIUS}
+        results = Yelp.client.search_by_coordinates(location, params, LOCALE)
+      else
+        neighborhood = /(.+), Manhattan|, Brooklyn/.match(location)[1]
+        params = {term: fl, limit: 5, cll: self.coords}
+        businesses = Yelp.client.search(location, params, LOCALE).businesses
+        businesses = businesses.select{|b| b.location.respond_to?("neighborhoods") && b.location.neighborhoods.include?(neighborhood)}
+      end
+      business_names = businesses.collect{|b| b.name}
+      self.famous_locations << fl if business_names.include?(fl)
+    end    
   end
 
   def build_chains_data(location)
     self.chains = {}
     self.class.chains.each do |chain|
-      params = {term: chain, limit: 10}
+      params = {term: chain, limit: 10, radius_filter: RADIUS}
       if location.class == Hash
         results = Yelp.client.search_by_coordinates(location, params, LOCALE)
       else
@@ -59,12 +78,11 @@ class YelpTouristTrapper
       end
       business_names = results.businesses.collect{|b| b.name}
       matches = business_names.select{|bn| bn == chain}.size
-      chains[chain.to_sym] = matches
+      self.chains[chain.to_sym] = matches
     end      
   end
 
   def build_category_data
-    self.neighborhoods = get_neighborhoods
     self.landmarks = get_category("landmarks")
     self.tours = get_category("tours")
     self.magicians = get_category("magicians")
