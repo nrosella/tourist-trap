@@ -28,18 +28,33 @@ class YelpTouristTrapper
   def build_data
     data = {}
     data[:neighborhoods] = get_neighborhoods
-    data[:landmarks] = get_landmarks
+    data[:landmarks] = get_category("landmarks")
+    data[:tours] = get_category("tours")
+    data[:magicians] = get_category("magicians")
+    data[:giftshops] = get_category("giftshops")
+    data[:souvenirs] = get_category("souvenirs")
+    data[:ticketsales] = get_category("ticketsales")
+    data[:amusementparks] = get_category("amusementparks")
+    data[:bikerentals] = get_category("bikerentals")
+    data[:zoos] = get_category("zoos")
+    data[:aquariums] = get_category("aquariums")
+    data[:boatcharters] = get_category("boatcharters")
+    data[:hotels] = get_category("hotelstravel")
+    data[:trainstations] = get_category("trainstations")
+    data[:pedicabs] = get_category("pedicabs")
+    data[:travelservices] = get_category("travelservices")
+    data[:localflavor] = get_category("localflavor")
     data[:coords] = get_coords
     data
+  end
+
+  def get_category(category)
+    self.tourist_traps.select{|trap| trap.categories.flatten.include?(category)}.collect{|trap| trap.name}
   end
 
   def get_neighborhoods
     self.tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
   end  
-
-  def get_landmarks
-    self.tourist_traps.select{|trap| trap.categories.flatten.include?("landmarks")}.collect{|trap| trap.name}
-  end
 
   def get_coords
     coords = {}
