@@ -3,14 +3,21 @@ class TouristsController < ApplicationController
   def index  
   end
 
-  def create 
-    @coords = YelpTouristTrapper.new.search_by_coords(coord_params[:lat].to_f, coord_params[:lon].to_f)
-    @neighborhood = YelpTouristTrapper.new.search_by_neighborhood(neighborhood_params[:neighborhood])
-    @tag_creator_neighborhood = TagCreator.new.convert_hash_to_tag(@neighborhood)
-    @tag_creator_coords = TagCreator.new.convert_hash_to_tag(@coords)
-    @istagram_tags_neighborhood = Tag.new.get_count_for_tag(@tag_creator_neighborhood)
-    @instagram_tags_coords = Tag.new.get_count_for_tag(@tag_creator_coords)
+  def create
+    if !coord_params.empty?
+      @results = YelpTouristTrapper.new.search_by_coords(coord_params[:lat].to_f, coord_params[:lon].to_f)
+    else
+      @results = YelpTouristTrapper.new.search_by_neighborhood(neighborhood_params[:neighborhood])
+    end
+    @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
+    @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
+
+    render :results 
   end
+
+  def show
+  end
+
 
   private
 
