@@ -8,7 +8,6 @@ class Tag
   def get_count_for_tag(tag)
     results = @client.tag_search(tag)
     results.collect {|result| result["media_count"]}.first
-    result.first
   end
 
 end
