@@ -3,7 +3,7 @@
     <legend>Search</legend>
     <div class="form-group col-lg-5">
     <%= label_tag("Choose a neighborhood") %><br>
-		<%= select_tag(tourists_path, options_for_select([["Manhattan", "manhattan"], ["Soho", "soho"], ["Financial District", "financial district"]]), method: "post",  class: "col-lg-3 control-label form-control")%>
+		<%= select_tag(tourists_path, options_for_select([["", ""],["Manhattan", "manhattan"], ["Soho", "soho"], ["Financial District", "financial district"]]), method: "post",  class: "col-lg-3 control-label form-control")%>
 		</div>
 <br>
 	<div class="col-lg-8"></div>
@@ -16,14 +16,8 @@
 		  <br>
 		  <%= submit_tag "Are there any tourists?", class: "btn btn-primary" %>
 		<% end %>
-
 		</div>
 	</fieldset>
 </form>
 
 
-
-
-
-#navbar
-#navbar

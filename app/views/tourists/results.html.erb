@@ -1,22 +1,71 @@
 <h1>And the results are in!</h1>
+<li class="list-group-item"><%= @results.neighborhoods.first%> has the following tourist attractions: </li class="list-group-item">
+<ul class="list-group">
 
-<p><%= @results.neighborhoods.first%> has the following tourist attractions: </p>
-<p>Landmarks: <%= @results.landmarks.count %><p>
-<p>Tours: <%= @results.tours.count %></p>
-<p>Magicians: <%= @results.magicians.count %></p>
-<p>Gift Shops: <%= @results.gift_shops.count %></p>
-<p>Souvenir Shops: <%= @results.souvenirs.count %></p>
-<p>Ticket Sales: <%= @results.ticket_sales.count %></p>
-<p>Amusement Parks: <%= @results.amusement_parks.count %></p>
-<p>Bike Rentals: <%= @results.bike_rentals.count %></p>
-<p>Zoos: <%= @results.zoos.count %></p>
-<p>Aquariam: <%= @results.aquariums.count %></p>
-<p>Boat Charters: <%= @results.boat_charters.count %></p>
-<p>Hotels: <%= @results.hotels_travel.count %></p>
-<p>Train Stations: <%= @results.train_stations.count %></p>
-<p>Pedicab Station: <%= @results.pedicabs.count %></p>
-<p>Travel Services: <%= @results.travel_services.count %></p>
-<p>Local Flavor: <%= @results.local_flavor.count %></p>
-<p>And a total sum of <%= @instagram_tags %> Instagram tags</p>
-
-<p>Giving it an overall tourist rating of: </p>
+<li class="list-group-item">
+  <span class="badge"><%= @results.landmarks.count %></span>
+  Landmarks </li>
+<li class="list-group-item">
+  <span class="badge"><%= @results.tours.count %></span>
+    Tours </li>
+<li class="list-group-item">
+  <span class="badge">
+  <%= @results.magicians.count %></span>
+    Magicians </li>
+<li class="list-group-item">
+  <span class="badge"><%= @results.gift_shops.count %></span>
+    Gift Shops </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.souvenirs.count %></span>
+    Souvenir Shops </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.ticket_sales.count %></span>
+    Ticket Sales </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.amusement_parks.count %></span>
+    Amusement Parks </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.bike_rentals.count %></span>
+    Bike Rentals </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.zoos.count %></span>
+    Zoos </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.aquariums.count %></span>
+    Aquariam </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.boat_charters.count %></span>
+    Boat Charters </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.hotels_travel.count %></span>
+    Hotels </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.train_stations.count %></span>
+    Train Stations </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.pedicabs.count %></span>
+    Pedicab Station </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.travel_services.count %></span>
+    Travel Services </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.local_flavor.count %></span>
+    Local Flavor </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @instagram_tags %></span>
+    Instagram tags </li>
+<li class="list-group-item">
+  <h3>Giving it an overall tourist rating of: </h3>
