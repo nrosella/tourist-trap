@@ -1,10 +1,11 @@
 class YelpTouristTrapper
   require 'csv'
-  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
+  attr_accessor :coords, :neighborhoods, :tourist_traps, :data, :chains
+  attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
   :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
   include NeighborhoodParser::InstanceMethods
 
-  LOCALE = {lang: "en"}
+  LOCALE = {lang: "en", cc: "US"}
   RADIUS = 200
   LOCATION = "New York"  
 
@@ -32,7 +33,7 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
-    build_data
+    build_category_data
   end
 
   def search_by_neighborhood(neighborhood)
@@ -42,10 +43,22 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhoods
     self.coords = get_coords
-    build_data
+    build_chains_data(neighborhood)
+    build_category_data
   end
 
-  def build_data
+  def build_chains_data(location)
+    self.chains = {}
+    self.class.chains.each do |chain|
+      params = {term: chain, limit: 10}
+      results = Yelp.client.search(location, params, LOCALE)
+      business_names = results.businesses.collect{|b| b.name}
+      matches = business_names.select{|bn| bn == chain}.size
+      chains[chain.to_sym] = matches
+    end
+  end
+
+  def build_category_data
     self.neighborhoods = get_neighborhoods
     self.landmarks = get_category("landmarks")
     self.tours = get_category("tours")
