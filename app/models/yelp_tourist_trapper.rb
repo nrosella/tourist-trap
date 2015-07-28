@@ -8,7 +8,10 @@ class YelpTouristTrapper
     CSV.foreach("app/models/tourist_traps/categories.csv").first
   end
 
-  LOCALE = {lang: "en"}
+  def self.locale
+    {lang: "en"}
+  end
+
   RADIUS = 200
   LOCATION = "New York"
   CHAINS = [
@@ -30,7 +33,7 @@ class YelpTouristTrapper
   def search_by_coords(lat, lng)
     params = {category_filter: self.class.categories.join(","), radius_filter: RADIUS }
     coords = {latitude: lat, longitude: lng}
-    results = Yelp.client.search_by_coordinates(coords, LOCALE, params)
+    results = Yelp.client.search_by_coordinates(coords, self.class.locale, params)
     self.tourist_traps = results.businesses
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
@@ -40,7 +43,7 @@ class YelpTouristTrapper
   def search_by_neighborhood(neighborhood)
     neighborhood = parse_neighborhood(neighborhood)
     params = {category_filter: self.class.categories.join(","), radius_filter: RADIUS}
-    results = Yelp.client.search(neighborhood, params, LOCALE)
+    results = Yelp.client.search(neighborhood, params, self.class.locale)
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhoods
     self.coords = get_coords
