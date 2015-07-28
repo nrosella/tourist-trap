@@ -4,6 +4,15 @@ class YelpTouristTrapper
   :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
   include NeighborhoodParser::InstanceMethods
 
+  LOCALE = {lang: "en"}
+  RADIUS = 200
+  LOCATION = "New York"  
+
+  def initialize
+    @coords = {}
+    @neighborhoods = []
+  end  
+
   def self.categories 
     CSV.foreach("app/models/tourist_traps/categories.csv").first
   end
@@ -12,19 +21,8 @@ class YelpTouristTrapper
     CSV.foreach("app/models/tourist_traps/chains.csv").first
   end
 
-  LOCALE = {lang: "en"}
-  RADIUS = 200
-  LOCATION = "New York"
-
-  FAMOUS_LOCATIONS = [
-    "Katz's Delicatessen", "Coyote Ugly Saloon", "The Rainbow Room", "Joe's Pizza", "Buddakan",
-    "Smith & Wollenksy's", "Central Park Boathouse", "SoHo House", "Café Grumpy", "Tom's Restaurant", 
-    "21 Club", "Lenny's Pizza", "Café Lalo", "New York Public Library", "McGee's Pub"
-  ]
-
-  def initialize
-    @coords = {}
-    @neighborhoods = []
+  def self.famous_locations
+    CSV.foreach("app/models/tourist_traps/famous_locations.csv").first
   end
 
   def search_by_coords(lat, lng)
