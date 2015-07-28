@@ -1,17 +1,29 @@
-<div class="col-md-5 jumbotron">
-	<h3>Create a new friend</h3>
+<form class="form-horizontal col-lg-12 jumbotron">
+  <fieldset class="col-lg-7">
+    <legend>Search</legend>
+    <div class="form-group col-lg-5">
+    <%= label_tag("Choose a neighborhood") %><br>
+		<%= select_tag(tourists_path, options_for_select([["Manhattan", "manhattan"], ["Soho", "soho"], ["Financial District", "financial district"]]), method: "post",  class: "col-lg-3 control-label form-control")%>
+		</div>
+<br>
+	<div class="col-lg-8"></div>
+		<div class="form-group col-lg-8">
+		<%= form_tag(tourists_path, method: "post", class: "form-control") do %>
+		  <%= label_tag("OR...") %><br>
+		  <%= text_field_tag "tourist[lat]", "Enter a latitude", class: "col-lg-7" %><br>
+		  <br>
+		  <%= text_field_tag "tourist[lon]", "Enter a longitude", class: "col-lg-7" %><br>
+		  <br>
+		  <%= submit_tag "Are there any tourists?", class: "btn btn-primary" %>
+		<% end %>
 
-<%= form_tag(tourists_path, method: "post") do %>
-  <%= label_tag("Enter a neighborhood:") %>
-  <%= text_field_tag("tourist[neighborhood]") %>
-  <%= submit_tag "Are there any tourists?" %>
-<% end %>
+		</div>
+	</fieldset>
+</form>
 
 
-<%= form_tag(tourists_path, method: "post") do %>
-  <%= label_tag("Enter a latitude:") %>
-  <%= text_field_tag("tourist[lat]") %>
-  <%= label_tag("Enter a longitude:") %>
-  <%= text_field_tag("tourist[lon]") %>
-  <%= submit_tag "Are there any tourists?" %>
-<% end %>
+
+
+
+#navbar
+#navbar
