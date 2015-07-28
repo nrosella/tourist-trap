@@ -53,7 +53,7 @@ class YelpTouristTrapper
   end
 
   def get_neighborhoods
-    self.tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
+    self.tourist_traps.collect { |trap| binding.pry; trap.location.neighborhoods }.flatten.uniq
   end  
 
   def get_coords
