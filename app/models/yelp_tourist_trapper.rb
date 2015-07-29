@@ -16,10 +16,23 @@ class YelpTouristTrapper
    
   def initialize   
     @coords = {}   
-    @neighborhoods = []    
+    @neighborhoods = []
+    @chains = []
+    @famous_locations = []
   end 
 
   # instance methods
+  def search_by_neighborhood(neighborhood)
+    neighborhood
+    params = {category_filter: self.class.categories, radius_filter: 500}
+    results = Yelp.client.search(neighborhood, params, LOCALE)
+    self.tourist_traps = results.businesses
+    self.neighborhoods << neighborhood
+    self.coords = get_coords(results)
+    build_data(neighborhood)
+    binding.pry
+  end
+
   def search_by_coords(lat, lng)
     params = {category_filter: self.class.categories, radius_filter: RADIUS }
     coords = {latitude: lat, longitude: lng}
@@ -30,48 +43,37 @@ class YelpTouristTrapper
     build_data(self.coords)
   end
 
-  def search_by_neighborhood(neighborhood)
-    neighborhood = parse_neighborhood(neighborhood)
-    params = {category_filter: self.class.categories, radius_filter: RADIUS}
-    results = Yelp.client.search(neighborhood, params, LOCALE)
-    self.tourist_traps = results.businesses
-    self.neighborhoods << neighborhood
-    self.coords = get_coords(results)
-    build_data(neighborhood)
+
+  def attributes
+    self.methods.select do |method|
+      /\w+={1}/.match(method)
+    end
+  end    
+
+  def category_attributes
+    self.attributes.reject{|a| /coords=|neighborhoods=|tourist_traps=|chains=|famous_locations=/.match(a.to_s)}
+  end    
+
+  def build_data(location)
+    build_famous_locations_data
+    build_chains_data(location)
+    build_category_data  
+    self  
   end
 
-    def attributes
-      self.methods.select do |method|
-        /\w+={1}/.match(method)
-      end
-    end    
-
-    def category_attributes
-      self.attributes.reject{|a| /coords=|neighborhoods=|tourist_traps=|chains=|famous_locations=/.match(a.to_s)}
-    end    
-
-    def build_data(location)
-      build_famous_locations_data
-      build_chains_data(location)
-      build_category_data  
-      self  
-    end
-
-    def build_famous_locations_data
-      self.famous_locations = []
-      latitude = self.coords[:latitude]
-      longitude = self.coords[:longitude]
-      self.class.famous_locations.each do |fl|
-        params = [latitude, longitude, fl[:latitude], fl[:longitude]]
-        dist = GeoDistance::Haversine.geo_distance(*params).meters
-        if dist < RADIUS
-          self.famous_locations << fl[:name]
-        end
+  def build_famous_locations_data
+    latitude = self.coords[:latitude]
+    longitude = self.coords[:longitude]
+    self.class.famous_locations.each do |fl|
+      params = [latitude, longitude, fl[:latitude], fl[:longitude]]
+      dist = GeoDistance::Haversine.geo_distance(*params).meters
+      if dist < RADIUS
+        self.famous_locations << fl[:name]
       end
     end
+  end
 
   def build_chains_data(location)
-    self.chains = []
     self.class.chains.each do |chain|
       params = {term: chain, limit: 10, radius_filter: RADIUS}
       if location.class == Hash
