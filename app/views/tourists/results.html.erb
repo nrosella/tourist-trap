@@ -3,7 +3,12 @@
 <ul class="list-group">
 
 <li class="list-group-item">
-  <span class="badge"><%= @results.landmarks.count %><% @results.each {|result| result.name} %></span>
+  <span class="badge"><%= @results.landmarks.count %>
+    <% 3.times do %>
+      <% @results.landmarks.each do |landmark| %>
+        <%= @landmark.name %>
+      <% end %>
+    <% end %></span>
   Landmarks </li>
 <li class="list-group-item">
   <span class="badge"><%= @results.tours.count %></span>
