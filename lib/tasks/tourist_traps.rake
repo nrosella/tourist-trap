@@ -19,7 +19,13 @@ namespace :tourist_traps do
       [search.location.coordinate.latitude, search.location.coordinate.longitude]
     end
 
+    rows = businesses.zip(coords).collect do |arr|
+      arr.flatten.join(",")
+    end
 
+    csv_format = rows.join("\n")
+
+    binding.pry
 
   end
 
