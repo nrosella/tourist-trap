@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'test/index'
+
   resources :tourists, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -6,6 +8,10 @@ Rails.application.routes.draw do
   
   # You can have the root of your site routed with "root"
   root 'tourists#index'
+
+  get 'maps/new' => 'maps#new'
+  post 'maps' => 'maps#create'
+  get 'maps' => 'maps#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

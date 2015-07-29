@@ -76,6 +76,7 @@ GEM
       sugar-high (~> 0.4.6.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    gmaps4rails (2.1.2)
     hashie (3.4.2)
     i18n (0.7.0)
     instagram (1.1.5)
@@ -188,6 +189,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   figaro
   geo-distance (~> 0.2.0)
+  gmaps4rails (~> 2.1.2)
   instagram
   jbuilder (~> 2.0)
   jquery-rails
