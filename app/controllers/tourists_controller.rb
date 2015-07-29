@@ -4,10 +4,11 @@ class TouristsController < ApplicationController
     @manhattan_neighborhoods = Borough.find_by(id: 3).neighborhoods
     @brooklyn_neighborhoods = Borough.find_by(id: 2).neighborhoods
     @neighborhood = Neighborhood.new
-    binding.pry  
+    
   end
 
   def create
+    # binding.pry
     if !coord_params.empty?
       @results = YelpTouristTrapper.new
       @results.search_by_coords(coord_params[:lat].to_f, coord_params[:lon].to_f)
