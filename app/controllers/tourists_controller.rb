@@ -12,7 +12,12 @@ class TouristsController < ApplicationController
     @results.search_by_neighborhood(neighborhood)
     @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
     @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
-    render :results 
+
+    respond_to do |format|
+      format.html {render :results}
+      format.js 
+    end
+
   end
 
   def show
