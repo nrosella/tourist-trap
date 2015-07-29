@@ -3,7 +3,7 @@
 <ul class="list-group">
 
 <li class="list-group-item">
-  <span class="badge"><%= @results.landmarks.count %></span>
+  <span class="badge"><%= @results.landmarks.count %><% @results.each {|result| result.name} %></span>
   Landmarks </li>
 <li class="list-group-item">
   <span class="badge"><%= @results.tours.count %></span>
@@ -68,4 +68,12 @@
     <%= @instagram_tags %></span>
     Instagram tags </li>
 <li class="list-group-item">
+  <span class="badge">
+    <%= @results.chains %></span>
+  Chain Restaurants </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.famous_locations %></span>
+  Famous Locations </li>
+
   <h3>Giving it an overall tourist rating of: </h3>

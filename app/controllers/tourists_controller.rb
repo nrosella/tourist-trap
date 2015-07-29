@@ -2,8 +2,7 @@ class TouristsController < ApplicationController
 
   def index
     @neighborhoods = Neighborhood.all
-    @boroughs = Borough.all
-    binding.pry  
+    @boroughs = Borough.all  
   end
 
   def create
