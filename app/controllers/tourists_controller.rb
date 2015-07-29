@@ -7,9 +7,6 @@ class TouristsController < ApplicationController
   end
 
   def create
-
-    #translating id to neighborhood
-    #get name from neighborhood
     neighborhood = Neighborhood.find(params[:neighborhood][:id]).name
     @results = YelpTouristTrapper.new
     @results.search_by_neighborhood(neighborhood)
@@ -23,14 +20,10 @@ class TouristsController < ApplicationController
   end
 
 
-  # private
-
-  # def coord_params
-  #   params.require(:tourist).permit(:lat, :lon)
-  # end
+  private
 
   # def neighborhood_params
-  #   params.require(:tourist).permit(:neighborhood)
+  #    params.require(:id).permit(:id, :name)
   # end
 
 end
