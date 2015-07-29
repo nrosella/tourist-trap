@@ -71,7 +71,7 @@ class YelpTouristTrapper
     end
 
   def build_chains_data(location)
-    self.chains = {}
+    self.chains = []
     self.class.chains.each do |chain|
       params = {term: chain, limit: 10, radius_filter: RADIUS}
       if location.class == Hash
@@ -81,7 +81,7 @@ class YelpTouristTrapper
       end
       business_names = results.businesses.collect{|b| b.name}
       matches = business_names.select{|bn| bn == chain}.size
-      self.chains[chain.to_sym] = matches
+      self.chains << {name: chain, count: matches}
     end      
   end
 
@@ -103,7 +103,7 @@ class YelpTouristTrapper
   def get_coords(results)
     {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
   end    
-    
+
 
   # class methods
   def self.categories    
