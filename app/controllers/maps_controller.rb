@@ -1,4 +1,4 @@
-class TestController < ApplicationController
+class MapsController < ApplicationController
   def index
   end
 
