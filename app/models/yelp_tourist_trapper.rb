@@ -23,7 +23,7 @@ class YelpTouristTrapper
 
   # instance methods
   def search_by_neighborhood(neighborhood)
-    neighborhood
+    neighborhood = parse_neighborhood(neighborhood)
     params = {category_filter: self.class.categories, radius_filter: 500}
     results = Yelp.client.search(neighborhood, params, LOCALE)
     self.tourist_traps = results.businesses
