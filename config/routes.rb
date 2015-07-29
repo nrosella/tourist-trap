@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get 'maps/new' => 'maps#new'
   post 'maps' => 'maps#create'
+  get 'maps' => 'maps#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

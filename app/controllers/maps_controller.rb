@@ -5,5 +5,11 @@ class MapsController < ApplicationController
 
   def create
     binding.pry
+    redirect 'show'
   end
+
+  def index
+    
+  end
+
 end
