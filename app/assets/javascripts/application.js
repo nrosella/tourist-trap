@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require geolocate
+//= require submit_button
