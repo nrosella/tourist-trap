@@ -1,6 +1,9 @@
 class TouristsController < ApplicationController
 
-  def index  
+  def index
+    @neighborhoods = Neighborhood.all
+    @boroughs = Borough.all
+    binding.pry  
   end
 
   def create
