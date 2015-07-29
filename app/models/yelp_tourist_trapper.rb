@@ -24,9 +24,7 @@ class YelpTouristTrapper
     self.tourist_traps = results.businesses
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
-    build_famous_locations_data(self.coords)
-    build_chains_data(self.coords)
-    build_category_data
+    build_data(self.coords)
   end
 
   def search_by_neighborhood(neighborhood)
@@ -77,7 +75,7 @@ class YelpTouristTrapper
     longitude = self.coords[:longitude]
     self.class.famous_locations.each do |fl|
       params = [latitude, longitude, fl[:latitude], fl[:longitude]]
-      dist = GeoDistance.distance(*params)
+      dist = GeoDistance::Haversine.geo_distance(*params).meters
       if dist < RADIUS
         self.famous_locations << fl[:name]
       end
