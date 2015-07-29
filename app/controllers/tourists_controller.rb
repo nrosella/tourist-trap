@@ -1,8 +1,9 @@
 class TouristsController < ApplicationController
 
   def index
-    @neighborhoods = Neighborhood.all
-    @boroughs = Borough.all
+    @manhattan_neighborhoods = Borough.find_by(id: 3).neighborhoods
+    @brooklyn_neighborhoods = Borough.find_by(id: 2).neighborhoods
+    @neighborhood = Neighborhood.new
     binding.pry  
   end
 

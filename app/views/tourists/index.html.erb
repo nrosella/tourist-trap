@@ -21,3 +21,9 @@
 </form>
 
 
+
+
+<%= form_for @neighborhoods do |f| %>
+	<%= f.collection_select :id, @manhattan_neighborhood, :id, :name, class: "form-control" %>
+	<% end %>
+
