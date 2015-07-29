@@ -5,8 +5,7 @@ class TagCreator
 			new_tag = result_hash.landmarks.first
 			converted = new_tag.split(/\s/).join("").downcase
 		else
-			new_tag = result_hash.neighborhoods.first
-			converted = new_tag.split(/\s/).join("").downcase
+			converted = result_hash.neighborhoods.first.split(",").first.downcase
 		end
 		converted
 	end

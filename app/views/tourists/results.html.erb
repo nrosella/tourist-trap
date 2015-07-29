@@ -1,14 +1,15 @@
+<div class="container-fluid col-lg-6">
 <h1>And the results are in!</h1>
-<li class="list-group-item"><%= @results.neighborhoods.first%> has the following tourist attractions: </li class="list-group-item">
+<h2>  <%= @results.neighborhoods.first%> has the following tourist attractions: </h2>
 <ul class="list-group">
 
 <li class="list-group-item">
-  <span class="badge"><%= @results.landmarks.count %>
-    <% 3.times do %>
-      <% @results.landmarks.each do |landmark| %>
-        <%= @landmark.name %>
-      <% end %>
-    <% end %></span>
+  <span class="badge">
+  <%= @instagram_tags %></span>
+    Instagram tags </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.landmarks.count %></span>
   Landmarks </li>
 <li class="list-group-item">
   <span class="badge"><%= @results.tours.count %></span>
@@ -70,15 +71,9 @@
     Local Flavor </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @instagram_tags %></span>
-    Instagram tags </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.chains %></span>
-  Chain Restaurants </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.famous_locations %></span>
+    <%= @results.famous_locations.count %></span>
   Famous Locations </li>
 
-  <h3>Giving it an overall tourist rating of: </h3>
+
+  <h1>Giving it an overall tourist rating of: </h1>
+</div>
