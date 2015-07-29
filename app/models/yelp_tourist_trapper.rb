@@ -30,7 +30,6 @@ class YelpTouristTrapper
     self.neighborhoods << neighborhood
     self.coords = get_coords(results)
     build_data(neighborhood)
-    binding.pry
   end
 
   def search_by_coords(lat, lng)
@@ -75,7 +74,7 @@ class YelpTouristTrapper
 
   def build_chains_data(location)
     self.class.chains.each do |chain|
-      params = {term: chain, limit: 10, radius_filter: RADIUS}
+      params = {term: chain, limit: 5, radius_filter: RADIUS}
       if location.class == Hash
         results = Yelp.client.search_by_coordinates(location, params, LOCALE)
       else
