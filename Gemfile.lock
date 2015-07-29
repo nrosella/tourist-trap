@@ -37,7 +37,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.2)
-    bhm-google-maps (0.3.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -77,6 +76,7 @@ GEM
       sugar-high (~> 0.4.6.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    gmaps4rails (2.1.2)
     hashie (3.4.2)
     i18n (0.7.0)
     instagram (1.1.5)
@@ -185,11 +185,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bhm-google-maps (~> 0.3.0)
   byebug
   coffee-rails (~> 4.1.0)
   figaro
   geo-distance (~> 0.2.0)
+  gmaps4rails (~> 2.1.2)
   instagram
   jbuilder (~> 2.0)
   jquery-rails
