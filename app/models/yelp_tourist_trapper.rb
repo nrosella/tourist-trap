@@ -1,5 +1,7 @@
 class YelpTouristTrapper
   require 'csv'
+  require 'geo-distance'
+  
   attr_accessor :coords, :neighborhoods, :tourist_traps, :chains, :famous_locations
   attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
   :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
