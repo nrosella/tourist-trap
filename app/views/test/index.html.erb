@@ -1,2 +1,7 @@
-<h1>Test#index</h1>
-<p>Find me in app/views/test/index.html.erb</p>
+<h1>Google Maps Test</h1>
+<h2>Find By Neighborhood</h2>
+<%= form_tag("/test/create", method: "post") do %>
+  <%= label_tag(:neighborhood, "Neighborhood") %>
+  <%= text_field_tag(:neighborhood) %>
+  <%= submit_tag("Submit") %>
+<% end %>
