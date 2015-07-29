@@ -35,7 +35,9 @@ class YelpTouristTrapper
   end    
    
   def self.famous_locations    
-    CSV.foreach("app/models/tourist_traps/famous_locations.csv").first   
+    CSV.foreach("lib/assets/famous_locations.csv").with_object([]) do |row, arr|
+      arr << {name: row[0], latitude: row[1], longitude: row[2]}
+    end      
   end  
 
   def search_by_coords(lat, lng)
@@ -61,28 +63,15 @@ class YelpTouristTrapper
   end
 
   def build_data(location)
-    build_famous_locations_data(location)
+    build_famous_locations_data
     build_chains_data(location)
     build_category_data  
     self  
   end
 
-  def build_famous_locations_data(location)
+  def build_famous_locations_data
     self.famous_locations = []
-    self.class.famous_locations.each do |fl|
-      if location.class == Hash
-        params = {term: fl, limit: 5, radius_filter: RADIUS}
-        businesses = Yelp.client.search_by_coordinates(location, params, LOCALE).businesses
-      else
-        neighborhood = /(.+), Manhattan|, Brooklyn/.match(location)[1]
-        params = {term: fl, limit: 5, cll: self.coords}
-        businesses = Yelp.client.search(location, params, LOCALE).businesses
-        businesses = businesses.select{|b| b.location.respond_to?("neighborhoods") && b.location.neighborhoods.include?(neighborhood)}
-      end
-
-      business_names = businesses.collect{|b| b.name}
-      self.famous_locations << fl if business_names.include?(fl)
-    end    
+    binding.pry
   end
 
   def build_chains_data(location)
