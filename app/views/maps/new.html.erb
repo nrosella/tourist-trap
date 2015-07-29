@@ -1,7 +1,9 @@
 <h1>Google Maps Test</h1>
 <h2>Find By Neighborhood</h2>
 <%= form_tag("/test/create", method: "post") do %>
-  <%= label_tag(:neighborhood, "Neighborhood") %>
-  <%= text_field_tag(:neighborhood) %>
+  <%= label_tag(:latitude, "Latitude") %>
+  <%= text_field_tag(:latitude) %>
+  <%= label_tag(:longitude, "Longitude") %>
+  <%= text_field_tag(:longitude) %>  
   <%= submit_tag("Submit") %>
 <% end %>
