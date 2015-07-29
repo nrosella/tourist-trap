@@ -4,8 +4,8 @@ class MapsController < ApplicationController
   end
 
   def create
-    @map = Map.new(params[:latitude], params[:longitude])
-    redirect_to action: "index"
+    @map = Map.new("My Location", params[:latitude], params[:longitude])
+    render 'map'
   end
 
   def index

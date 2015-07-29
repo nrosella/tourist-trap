@@ -41,8 +41,8 @@ gem 'nokogiri'
 # Calculates the geo distance between two locations using longitude and latitude using Haversine, Speherical or Vincenty formula. 
 gem 'geo-distance', '~> 0.2.0'
 
-# Helpers for Google Maps v3 in Rails - Using html 5, the google maps api v3 and the static maps api
-gem 'bhm-google-maps', '~> 0.3.0'
+# Enables easy Google map + overlays creation.
+gem 'gmaps4rails', '~> 2.1.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

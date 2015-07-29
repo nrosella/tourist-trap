@@ -1,7 +1,8 @@
 class Map
-  attr_accessor :lat, :lng
+  attr_accessor :address, :lat, :lng
   
-  def initialize(lat, lng)
+  def initialize(address, lat, lng)
+    @address = address
     @lat = lat
     @lng = lng
   end
