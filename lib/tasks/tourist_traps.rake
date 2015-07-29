@@ -20,13 +20,15 @@ namespace :tourist_traps do
     end
 
     rows = businesses.zip(coords).collect do |arr|
-      arr.flatten.join(",")
+      arr.flatten
     end
 
-    csv_format = rows.join("\n")
-
-    binding.pry
-
+    CSV.open("lib/assets/famous_locations.csv", 'w') do |writer|
+      rows.each do |row|
+        writer << row
+      end
+    end
+    
   end
 
 end
