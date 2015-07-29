@@ -5,4 +5,5 @@ class Map
     @lat = lat
     @lng = lng
   end
+
 end
