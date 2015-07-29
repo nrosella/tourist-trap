@@ -1,9 +1,23 @@
 <h1>Google Maps Test</h1>
 <h2>Find By Neighborhood</h2>
-<%= form_tag("/test/create", method: "post") do %>
-  <%= label_tag(:latitude, "Latitude") %>
-  <%= text_field_tag(:latitude) %>
-  <%= label_tag(:longitude, "Longitude") %>
-  <%= text_field_tag(:longitude) %>  
-  <%= submit_tag("Submit") %>
-<% end %>
+
+<div class="row">
+  <%= form_tag("/maps", method: "post", class: "form col-md-4") do %>
+    <div class="form-group">
+      <%= label_tag(:latitude, "Latitude") %>
+      <%= text_field_tag(:latitude, "", class: "form-control") %>    
+    </div>
+    <div class="form-group">
+      <%= label_tag(:longitude, "Longitude") %>
+      <%= text_field_tag(:longitude, "", class: "form-control") %>    
+    </div>
+    <div class="form-group">
+      <%= submit_tag("Submit", class: "btn btn-default") %>
+    </div>
+  <% end %>  
+  <div class="col-md-4">
+    <button class="btn btn-default" id="geolocate">
+      Use My Location
+    </button>      
+  </div>
+</div>
