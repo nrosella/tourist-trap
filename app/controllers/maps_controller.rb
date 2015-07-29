@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
-  def index
+  def new
   end
 
   def create
