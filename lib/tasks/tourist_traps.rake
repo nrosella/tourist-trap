@@ -5,12 +5,15 @@ namespace :tourist_traps do
       "Katz's Delicatessen","Coyote Ugly Saloon","The Rainbow Room",
       "Joe's Pizza","Buddakan","Smith & Wollenksy","The Central Park Boathouse",
       "SoHo House","Café Grumpy","Tom's Restaurant","21 Club","Lenny's Pizza",
-      "Café Lalo","New York Public Library","McGee's Pub","Russ & Daughters"
+      "Café Lalo","New York Public Library","McGee's Pub","Russ & Daughters", "Plaza Hotel",
+      "Tiffany & Co", "Manolo Blahnik Boutique", "Loeb Boathouse",
+      "Tavern on the Green", "Magnolia Bakery", "New York City Criminal Court", "Penn Station",
+      "FAO Schwarz", "Columbia University", "Rockefeller Center", "Museum of Natural History"
     ]
     locale =  {cc: "US", lang: "en"}
 
     ids = businesses.collect do |b|
-      search = Yelp.client.search("New York", {term: b, limit: 3})
+      search = Yelp.client.search("New York City", {term: b, limit: 3})
       search.businesses.first.id.gsub(/é/, "e")
     end
 
