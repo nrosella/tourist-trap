@@ -16,4 +16,4 @@ manhattan = manhattan_neighborhoods.each do |n|
               Neighborhood.create(:name => n, :borough_id => 3)
             end
 
-Borough.create({:name => "Bronx"}, {:name => "Brooklyn"}, {:name => "Manhattan"}, {:name => "Queens"}, {:name => "Staten Island"})
+Borough.create([{:name => "Bronx"}, {:name => "Brooklyn"}, {:name => "Manhattan"}, {:name => "Queens"}, {:name => "Staten Island"}])
