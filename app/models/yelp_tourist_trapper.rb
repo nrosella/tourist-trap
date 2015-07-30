@@ -69,6 +69,11 @@ class YelpTouristTrapper
       params = {term: chain, limit: 5, radius_filter: RADIUS}
       results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
+      results.businesses.each do |b|
+        if b.location.respond_to?(:coordinate)
+          self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
+        end
+      end
       matches = business_names.select{|bn| bn == chain}.size
       self.chains << {name: chain, count: matches}
     end      
