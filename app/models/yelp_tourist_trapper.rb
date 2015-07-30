@@ -9,7 +9,7 @@ class YelpTouristTrapper
   include NeighborhoodParser::InstanceMethods
 
   LOCALE = {lang: "en", cc: "US"}
-  RADIUS = 300
+  RADIUS = 800
   LOCATION = "New York"  
   CATEGORIES = [
     "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
@@ -18,7 +18,6 @@ class YelpTouristTrapper
    
   def initialize   
     @coords = {}   
-    @neighborhoods = []
     @chains = []
     @famous_locations = []
   end 
