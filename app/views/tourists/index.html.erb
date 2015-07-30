@@ -1,5 +1,7 @@
-
-
+<div align="center" class="col-lg-12">
+<h2>Welcome to Tourist Trap!</h2>
+<h3 class="lead">Choose a neighborhood below to see whether that location is touristy or not...</h3><br>
+</div><br>
 <div class="col-lg-5" id="1">
 	<fieldset>
 	  <legend>Search</legend>
@@ -9,20 +11,25 @@
 	    		<option value="Manhattan">Manhattan</option>
 	    		<option value="Brooklyn">Brooklyn</option>
 	  		</select>
-			</div>
-			<div class="col-lg-12"></div>
+			</div><br>
+			<div class="form-group col-lg-12"></div>
 			<div id="manhattan_form" style="display:none">
 				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
 					<%= f.collection_select :id, @manhattan_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
-					<%= f.submit value: "Is this area touristy?", class: "submit btn btn-primary disabled col-lg-12" %>
+					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
 				<% end %>
 			</div><br>
 			<div id="brooklyn_form" style="display:none">
 				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
 					<%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
-					<%= f.submit value: "Is this area touristy?", class: "submit btn btn-primary disabled" %>
+					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
 				<% end %>
-			</div>
+			</div><br>
 	</fieldset>
+</div>
+
+<div class="col-lg-1"></div>
+<div class="col-lg-6">
+	<legend>Map</legend>
 </div>
 
