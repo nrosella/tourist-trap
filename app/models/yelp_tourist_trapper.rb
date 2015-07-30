@@ -37,7 +37,6 @@ class YelpTouristTrapper
     end
 
     self.neighborhoods << neighborhood
-    binding.pry
     build_famous_locations_data
     build_chains_data(neighborhood)
     self
