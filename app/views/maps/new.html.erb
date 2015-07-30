@@ -13,13 +13,13 @@
       </div><br>
       <div class="form-group col-lg-12"></div>
       <div id="manhattan_form" style="display:none">
-        <%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
+        <%= form_for @neighborhood, :url => url_for(:controller => 'maps', :action => 'create') do |f| %>
           <%= f.collection_select :id, @manhattan_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
           <%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
         <% end %>
       </div><br>
       <div id="brooklyn_form" style="display:none">
-        <%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
+        <%= form_for @neighborhood, :url => url_for(:controller => 'maps', :action => 'create') do |f| %>
           <%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
           <%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
         <% end %>
