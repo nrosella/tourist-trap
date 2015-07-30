@@ -13,7 +13,7 @@ class TouristsController < ApplicationController
     @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
     @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
     @instagrams = Tag.new.get_tourist_instagrams(@tag_creator)
-    
+    binding.pry
 
     respond_to do |format|
       format.html {render :results}
@@ -24,12 +24,5 @@ class TouristsController < ApplicationController
 
   def show
   end
-
-
-  private
-
-  # def neighborhood_params
-  #    params.require(:neighborhood).permit(:id)
-  # end
 
 end
