@@ -1,11 +1,12 @@
 <div style="height: 500px">
   <div id="map-canvas" style="width: 100%; height: 100%"></div>
 </div>
-<div style="display:none;">
-  <div id="latitude"><%= @map.latitude %></div>
-  <div id="longitude"><%= @map.longitude %></div>
-</div>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHt7Ci_Pkla9r_n8kuaOYlXSaPLM2QG_A"></script>
-<%= include_gon %>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+</script>
 <%= javascript_include_tag "map" %>
+<%= include_gon %>
+<script>
+
+</script>
 
