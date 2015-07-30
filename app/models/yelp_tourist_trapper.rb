@@ -28,7 +28,7 @@ class YelpTouristTrapper
     neighborhood = parse_neighborhood(neighborhood)
 
     CATEGORIES.each do |category|
-      params = {category_filter: category, radius_filter: RADIUS}
+      params = {category_filter: category, radius_filter: RADIUS, sort: 1}
       results = Yelp.client.search(neighborhood, params, LOCALE)
 
       if !results.businesses.empty?
