@@ -4,7 +4,7 @@ class YelpTouristTrapper
   
   attr_accessor :coords, :neighborhoods, :tourist_traps, :chains, :famous_locations
   attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
-  :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels_travel, :train_stations, :pedicabs, :travel_services, :local_flavor
+  :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels, :train_stations, :pedicabs, :travel_services, :local_flavor
 
   include NeighborhoodParser::InstanceMethods
   include YelpTouristTrapperHelper::InstanceMethods
@@ -24,11 +24,12 @@ class YelpTouristTrapper
   # instance methods
   def search_by_neighborhood(neighborhood)
     neighborhood = parse_neighborhood(neighborhood)
-    params = {category_filter: self.class.categories, radius_filter: 500, sort: 1}
+    params = {category_filter: self.class.categories, radius_filter: 500}
     results = Yelp.client.search(neighborhood, params, LOCALE)
     self.tourist_traps = results.businesses
     self.neighborhoods << neighborhood
     self.coords = get_coords(results)
+    binding.pry
     build_data(neighborhood)
   end
 
