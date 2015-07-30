@@ -36,7 +36,8 @@ var drawMap = function drawMap() {
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(location.latitude, location.longitude),
       map: map,
-      title: location.name
+      title: location.name,
+      animation: google.maps.Animation.DROP
     });
   };
 }
