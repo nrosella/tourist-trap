@@ -34,7 +34,6 @@ class YelpTouristTrapper
       self.coords = get_coords(results)
       self.send(category+"=", names)
     end
-
     self.neighborhood = neighborhood
     build_famous_locations_data
     build_chains_data

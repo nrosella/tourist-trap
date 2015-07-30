@@ -1,0 +1,29 @@
+<div style="background-image: url('images/nyc.jpg'); background-size: cover; background-position: center" class="bg jumbotron">
+  <div class="bigHeader text-center">
+    <div>
+      <hr class="white">
+      <h1 class="white uppercase hugetext" style="font-size: 48px;">NYC NEIGHBORHOOD BUZZ</h1>
+    </div>
+
+    <div class="dropdown" style="margin-top: 25px;">
+      <select id="borough-selection" class="btn-lg btn-danger" style="width:55%;height:45px;">
+        <option value="hasnt-been-chosen">SELECT A BOROUGH TO GET STARTED!</option>
+        <option value="Manhattan">MANHATTAN</option>
+        <option value="Brooklyn">BROOKLYN</option>
+        <option value="Queens">QUEENS</option>
+      </select>
+    </div>
+
+    <div class="neighborhood-dropdown dropdown btn-lg" id="manhattan-dropdown">
+      <%= form_for(@neighborhood) do |f| %>
+        <%= f.collection_select :id, @manhattan_neighborhoods,:id,:name, {:prompt => "SELECT A MANHATTAN NEIGHBORHOOD"}, :class => "btn-lg" %>
+          <%= f.submit value: "LET'S SEE THE BUZZ", :class => "see-buzz btn disabled btn-lg" %>
+      <% end %>
+    </div>
+
+    <div class="neighborhood-dropdown dropdown btn-lg" id="brooklyn-dropdown">
+      <%= form_for(@neighborhood) do |f| %>
+        <%= f.collection_select :id, @brooklyn_neighborhoods,:id,:name, {:prompt => "SELECT A BROOKLYN NEIGHBORHOOD"}, :class => "btn-lg" %>
+        <%= f.submit value: "LET'S SEE THE BUZZ", :class => "see-buzz btn disabled btn-lg" %>
+      <% end %>
+    </div>
