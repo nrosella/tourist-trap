@@ -44,6 +44,9 @@ gem 'geo-distance', '~> 0.2.0'
 # Enables easy Google map + overlays creation.
 gem 'gmaps4rails', '~> 2.1.2'
 
+# If you need to send some data to your js files and you don't want to do this with long way trough views and parsing - use this force!
+gem 'gon', '~> 5.2.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
