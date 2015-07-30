@@ -2,7 +2,7 @@ class YelpTouristTrapper
   require 'csv'
   require 'geo-distance'
   
-  attr_accessor :coords, :neighborhood, :tourist_traps, :chains, :famous_locations
+  attr_accessor :coords, :neighborhood, :chains, :famous_locations, :locations
   attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
@@ -20,6 +20,7 @@ class YelpTouristTrapper
     @coords = {}   
     @chains = []
     @famous_locations = []
+    @locations = []
   end 
 
   # instance methods
@@ -29,10 +30,21 @@ class YelpTouristTrapper
     CATEGORIES.each do |category|
       params = {category_filter: category, radius_filter: RADIUS}
       results = Yelp.client.search(neighborhood, params, LOCALE)
-      names = results.businesses.collect{|b| b.name}
-      self.coords = get_coords(results)
-      self.send(category+"=", names)
+
+      if !results.businesses.empty?
+        names = results.businesses.collect{|b| b.name}
+        locations = results.businesses.collect do |b|
+          Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
+        end
+
+        self.coords = get_coords(results)
+        self.send(category+"=", names)
+        self.locations << locations      
+
+      end
+
     end
+
     self.neighborhood = neighborhood
     build_famous_locations_data
     build_chains_data
