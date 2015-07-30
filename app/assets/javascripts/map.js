@@ -15,7 +15,8 @@ var drawMap = function drawMap() {
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   var heatmap = new google.maps.visualization.HeatmapLayer({
-    data: heatMapData
+    data: heatMapData,
+    radius: 20
   });
   heatmap.setMap(map)
 }
