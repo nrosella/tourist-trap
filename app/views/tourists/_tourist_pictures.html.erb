@@ -1,1 +1,3 @@
-<%= @instagrams %>
+<% @instagrams.each do |instagram| %>
+  <%= system("open instagram") %>
+<% end %>
