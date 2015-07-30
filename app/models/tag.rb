@@ -15,12 +15,12 @@ class Tag
 
     if pics.find {|pic| pic["tags"].include?("selfie")}
       instagrams = pics.collect {|pic| pic["tags"].include?("selfie")}
+    elsif pics.find {|pic| pic["tags"].include?(tag + "selfie")}
+      instagrams = pics.collect {|pic| pic["tags"].include?(tag + "selfie")}
     elsif pics.find {|pic| pic["tags"].include?(tag)}
       instagrams = pics.collect{|pic| pic["tags"].include?(tag)}
-    else
-      instagrams = pics
     end
     instagrams = pics.collect {|pic| pic["images"]["standard_resolution"]["url"]}
-    ten_instagrams = instagrams[0..9]
+    ten_instagrams = instagrams[0..8]
   end
 end

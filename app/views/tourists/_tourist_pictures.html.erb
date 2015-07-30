@@ -1,3 +1,5 @@
-<% @instagrams.each do |instagram| %>
-  <img src="<%=instagram%>" alt="instagram pictures">
-<% end %>
+<div class="row col-md-12 jumbotron">
+    <% @instagrams.each do |instagram| %>
+      <p><img src="<%=instagram%>" alt="instagram pictures" class="col-md-4"><p>
+    <% end %>
+</div>
