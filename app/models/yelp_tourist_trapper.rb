@@ -3,8 +3,8 @@ class YelpTouristTrapper
   require 'geo-distance'
   
   attr_accessor :coords, :neighborhoods, :tourist_traps, :chains, :famous_locations
-  attr_accessor :ticket_sales, :magicians, :tours, :landmarks, :gift_shops, :souvenirs,
-  :amusement_parks, :bike_rentals, :zoos, :aquariums, :boat_charters, :hotels, :train_stations, :pedicabs, :travel_services, :local_flavor
+  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
+  :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
   include NeighborhoodParser::InstanceMethods
   include YelpTouristTrapperHelper::InstanceMethods
@@ -13,6 +13,10 @@ class YelpTouristTrapper
   LOCALE = {lang: "en", cc: "US"}
   RADIUS = 200
   LOCATION = "New York"  
+  CATEGORIES = [
+    "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
+    "amusementparks","bikerentals","zoos","aquariums","boatcharters","hotels",
+    "trainstations","pedicabs","travelservices","localflavor"]
    
   def initialize   
     @coords = {}   
@@ -24,13 +28,19 @@ class YelpTouristTrapper
   # instance methods
   def search_by_neighborhood(neighborhood)
     neighborhood = parse_neighborhood(neighborhood)
-    params = {category_filter: self.class.categories, radius_filter: 500}
-    results = Yelp.client.search(neighborhood, params, LOCALE)
-    self.tourist_traps = results.businesses
+
+    CATEGORIES.each do |category|
+      params = {category_filter: category, radius_filter: 500}
+      results = Yelp.client.search(neighborhood, params, LOCALE)
+      self.send(category+"=", results.total)
+      self.coords = get_coords(results)
+    end
+
     self.neighborhoods << neighborhood
-    self.coords = get_coords(results)
     binding.pry
-    build_data(neighborhood)
+    build_famous_locations_data
+    build_chains_data(location)
+    self
   end
 
   def search_by_coords(lat, lng)
@@ -41,24 +51,6 @@ class YelpTouristTrapper
     self.coords = {latitude: lat, longitude: lng}
     self.neighborhoods = get_neighborhoods
     build_data(self.coords)
-  end
-
-
-  def attributes
-    self.methods.select do |method|
-      /\w+={1}/.match(method)
-    end
-  end    
-
-  def category_attributes
-    self.attributes.reject{|a| /coords=|neighborhoods=|tourist_traps=|chains=|famous_locations=/.match(a.to_s)}
-  end    
-
-  def build_data(location)
-    build_famous_locations_data
-    build_chains_data(location)
-    build_category_data  
-    self  
   end
 
   def build_famous_locations_data
@@ -85,17 +77,6 @@ class YelpTouristTrapper
       matches = business_names.select{|bn| bn == chain}.size
       self.chains << {name: chain, count: matches}
     end      
-  end
-
-  def build_category_data
-    self.category_attributes.each do |ca|
-      category = ca.to_s.gsub("_","").delete("=")
-      self.send(ca, get_category(category))
-    end
-  end
-
-  def get_category(category)
-    self.tourist_traps.select{|trap| trap.categories.flatten.include?(category)}.collect{|trap| trap.name}
   end
 
   def get_neighborhoods
