@@ -36,12 +36,12 @@ class YelpTouristTrapper
         locations = results.businesses.collect do |b|
           Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
         end
-
         self.coords = get_coords(results)
         self.send(category+"=", names)
-        self.locations << locations      
-
-      end
+        self.locations << locations
+      else
+        self.send(category+"=", [])      
+      end   
 
     end
 
