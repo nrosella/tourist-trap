@@ -33,12 +33,13 @@ class YelpTouristTrapper
 
       if !results.businesses.empty?
         names = results.businesses.collect{|b| b.name}
-        locations = results.businesses.collect do |b|
-          Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
+        results.businesses.each do |b|
+          if b.location.respond_to?(:coordinate)
+            self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
+          end
         end
         self.coords = get_coords(results)
         self.send(category+"=", names)
-        self.locations << locations
       else
         self.send(category+"=", [])      
       end   
