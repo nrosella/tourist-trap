@@ -40,9 +40,10 @@ class YelpTouristTrapper
         end
         self.coords = get_coords(results)
         self.send(category+"=", names)
-        self.locations << locations      
-
-      end
+        self.locations << locations
+      else
+        self.send(category+"=", [])      
+      end   
 
     end
 
