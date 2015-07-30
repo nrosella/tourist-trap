@@ -43,16 +43,6 @@ class YelpTouristTrapper
     self
   end
 
-  def search_by_coords(lat, lng)
-    params = {category_filter: self.class.categories, radius_filter: RADIUS }
-    coords = {latitude: lat, longitude: lng}
-    results = Yelp.client.search_by_coordinates(coords, LOCALE, params)
-    self.tourist_traps = results.businesses
-    self.coords = {latitude: lat, longitude: lng}
-    self.neighborhoods = get_neighborhoods
-    build_data(self.coords)
-  end
-
   def build_famous_locations_data
     latitude = self.coords[:latitude]
     longitude = self.coords[:longitude]
