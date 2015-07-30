@@ -18,7 +18,7 @@ class Tag
         pic["tags"].include?("selfie")
         selfie_array << pic
       end
-      instagrams = selfies.collect {|pic| pic["images"]["standard_resolution"]["url"]}
+      instagrams = selfie_array.collect {|pic| pic["images"]["standard_resolution"]["url"]}
       ten_instagrams = instagrams[0..9]
     elsif pics.collect {|pic| pic["tags"].include?(tag)}
       tourist_array = []
