@@ -1,22 +1,38 @@
-
-<div id="1">
-  <fieldset class="col-lg-7">
-    <legend>Search</legend>
-    <button type="button" id="manhattan">Manhattan</button>
-    <div class="form-group col-lg-5" id="manhattan_form" style="display:none">
-   		<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
-				<%= f.collection_select :id, @manhattan_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %>
-				<%= f.submit value: "Submit", class: "submit" %>
-			<% end %>
-
-		</div>
-    <button type="button" id="brooklyn">Brooklyn</button>
-		<div class="form-group col-lg-5" id="brooklyn_form" style="display:none">
-			<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
-				<%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %>
-				<%= f.submit value: "Submit", class: "submit" %>
-			<% end %>
-		</div>
+<div align="center" class="col-lg-12">
+<h2>Welcome to Tourist Trap!</h2>
+<h3 class="lead">Choose a neighborhood below to see whether that location is touristy or not...</h3><br>
+</div><br>
+<div class="col-lg-5" id="1">
+	<fieldset>
+	  <legend>Search</legend>
+	  	<div class="dropdown" style="margin-top: 25px;">
+	  		<select id="borough-select" class="btn btn-primary btn-lg col-lg-12" style="height:45px;">
+	    		<option value="hasnt-been-chosen">Please select a borough</option>
+	    		<option value="Manhattan">Manhattan</option>
+	    		<option value="Brooklyn">Brooklyn</option>
+	  		</select>
+			</div><br>
+			<div class="form-group col-lg-12"></div>
+			<div id="manhattan_form" style="display:none">
+				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
+					<%= f.collection_select :id, @manhattan_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
+					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
+				<% end %>
+			</div><br>
+			<div id="brooklyn_form" style="display:none">
+				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
+					<%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
+					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
+				<% end %>
+			</div><br>
 	</fieldset>
 </div>
 
+<div class="col-lg-1"></div>
+<div class="col-lg-6">
+	<legend>Map</legend>
+</div>
+
+
+  <div id="load"><img src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif"/>
+</div>

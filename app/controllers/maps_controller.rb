@@ -4,7 +4,7 @@ class MapsController < ApplicationController
   end
 
   def create
-    @map = Map.new("My Location", params[:latitude], params[:longitude])
+    @map = Map.new(params[:latitude], params[:longitude])
     render 'map'
   end
 

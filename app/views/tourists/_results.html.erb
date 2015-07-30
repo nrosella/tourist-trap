@@ -1,6 +1,6 @@
 <div class="container-fluid col-lg-6">
 <h1>And the results are in!</h1>
-<h2>  <%= @results.neighborhoods.first%> has the following tourist attractions: </h2>
+<h2>  <%= @results.neighborhood%> has the following tourist attractions: </h2>
 <ul class="list-group">
 
 <li class="list-group-item">
@@ -19,7 +19,7 @@
   <%= @results.magicians.count %></span>
     Magicians </li>
 <li class="list-group-item">
-  <span class="badge"><%= @results.gift_shops.count %></span>
+  <span class="badge"><%= @results.giftshops.count %></span>
     Gift Shops </li>
 <li class="list-group-item">
   <span class="badge">
@@ -27,15 +27,15 @@
     Souvenir Shops </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.ticket_sales.count %></span>
+    <%= @results.ticketsales.count %></span>
     Ticket Sales </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.amusement_parks.count %></span>
+    <%= @results.amusementparks.count %></span>
     Amusement Parks </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.bike_rentals.count %></span>
+    <%= @results.bikerentals.count %></span>
     Bike Rentals </li>
 <li class="list-group-item">
   <span class="badge">
@@ -47,15 +47,15 @@
     Aquariam </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.boat_charters.count %></span>
+    <%= @results.boatcharters.count %></span>
     Boat Charters </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.hotels_travel.count %></span>
+    <%= @results.hotels.count %></span>
     Hotels </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.train_stations.count %></span>
+    <%= @results.trainstations.count %></span>
     Train Stations </li>
 <li class="list-group-item">
   <span class="badge">
@@ -63,11 +63,11 @@
     Pedicab Station </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.travel_services.count %></span>
+    <%= @results.travelservices.count %></span>
     Travel Services </li>
 <li class="list-group-item">
   <span class="badge">
-    <%= @results.local_flavor.count %></span>
+    <%= @results.localflavor.count %></span>
     Local Flavor </li>
 <li class="list-group-item">
   <span class="badge">

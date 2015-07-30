@@ -1,14 +1,31 @@
-$(function() {
+$(function(){
+    $('#borough-select').change(function(event){
+        var borough = $(this).val();
+        $('#manhattan_form').hide();
+        $('.submit').addClass("disabled");
+        if(borough == "Manhattan") {
+            $('#manhattan_form').show();
+        } else if(borough == "Brooklyn") {
+            $('#brooklyn_form').show();
+        }
+    });
 
-$("#manhattan").click(function(){
-    $("#manhattan_form").show();
-    $("#manhattan").hide();
-    $("#brooklyn_form").hide();
+    $('.dropdown').change(function(event){
+        var neighborhoodID = $(this).find("select").val();
+        if(neighborhoodID == "") {
+            $('.submit').addClass("disabled");
+        } else {
+            $('.submit').removeClass("disabled");
+        }
+    });
+
+   $(document).ready(function(){
+   	$("#load").hide();
+   }).ajaxStart(function () {
+       $("#load").show();
+    }).ajaxStop(function () {
+       $("#load").hide();
+    });
+
 });
 
-$("#brooklyn").click(function(){
-    $("#brooklyn_form").show();
-    $("#brooklyn").hide();
-    $("#manhattan_form").hide();
-});
-});
