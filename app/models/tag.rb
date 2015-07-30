@@ -6,6 +6,7 @@ class Tag
   end
 
   def get_count_for_tag(tag)
+  	# binding.pry
     results = @client.tag_search(tag)
     results.collect {|result| result["media_count"]}.first
   end
