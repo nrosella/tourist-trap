@@ -77,6 +77,11 @@ GEM
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     gmaps4rails (2.1.2)
+    gon (5.2.3)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     hashie (3.4.2)
     i18n (0.7.0)
     instagram (1.1.5)
@@ -139,6 +144,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    request_store (1.2.0)
     require_all (1.2.1)
     sass (3.4.16)
     sass-rails (5.0.3)
@@ -190,6 +196,7 @@ DEPENDENCIES
   figaro
   geo-distance (~> 0.2.0)
   gmaps4rails (~> 2.1.2)
+  gon (~> 5.2.3)
   instagram
   jbuilder (~> 2.0)
   jquery-rails
