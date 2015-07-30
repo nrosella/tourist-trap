@@ -1,1 +1,7 @@
-$('#1').html("<%= j render partial: 'results' %>");
+$('#dropdown-forms').html("<%= j render partial: 'results' %>");
+$('#scripts').html("<%= j include_gon %> <%= j javascript_include_tag 'map' %>");
+$('#google-map').html("<%= j render partial: 'map' %>");
+
+	
+
+

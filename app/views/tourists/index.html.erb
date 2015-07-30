@@ -1,9 +1,12 @@
-<div align="center" class="col-lg-12">
+<div class="row">
+<div align="center" class="col-lg-12" style="margin-bottom: 40px">
 	<h2>Welcome to Tourist Trap!</h2>
 	<h3 class="lead">Choose a neighborhood below to see whether that location is touristy or not...</h3><br>
+	<input type="button" value="Search again" onClick="document.location.reload(true)" class="btn btn-primary btn-sm"><br>
 </div><br>
-
-<div class="col-lg-5" id="1">
+</div>
+<div class="row">
+<div class="col-lg-5" id="dropdown-forms">
 	<fieldset>
 	  <legend>Search</legend>
 	  	<div class="dropdown" style="margin-top: 25px;">
@@ -18,14 +21,14 @@
 			<div id="manhattan_form" style="display:none">
 				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
 					<%= f.collection_select :id, @manhattan_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
-					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
+					<%= f.submit value: "SEARCH NEIGHBORHOOD", class: "submit btn btn-primary disabled col-lg-12" %>
 				<% end %>
 			</div><br>
 
 			<div id="brooklyn_form" style="display:none">
 				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create'), remote: true do |f| %>
 					<%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
-					<%= f.submit value: "submit", class: "submit btn btn-primary disabled col-lg-12" %>
+					<%= f.submit value: "SEARCH NEIGHBORHOOD", class: "submit btn btn-primary disabled col-lg-12" %>
 				<% end %>
 			</div><br>
 	</fieldset><br>
@@ -37,8 +40,14 @@
 
 <div class="col-lg-1"></div>
 
-	<div class="col-lg-6">
+	<div class="col-lg-6" id="google-map">
 		<legend>Map</legend>
 </div>
+</div>
 
-<input type="button" value="Back" onClick="document.location.reload(true)" class"btn btn-primary">
+<div id="brooklyn_form" style="display:none">
+				<%= form_for @neighborhood, :url => url_for(:controller => 'tourists', :action => 'create') do |f| %>
+					<%= f.collection_select :id, @brooklyn_neighborhoods, :id, :name, {:prompt => "Select a neighborhood"}, class: "form-control" %><br>
+					<%= f.submit value: "SEARCH NEIGHBORHOOD", class: "submit btn btn-primary disabled col-lg-12" %>
+				<% end %>
+			</div><br>
