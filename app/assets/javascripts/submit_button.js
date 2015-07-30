@@ -22,9 +22,9 @@ $(function(){
    $(document).ready(function(){
    	$("#load").hide();
    }).ajaxStart(function () {
-        $("#load").show();
+       $("#load").show();
     }).ajaxStop(function () {
-        $("#load").hide();
+       $("#load").hide();
     });
 
 });
