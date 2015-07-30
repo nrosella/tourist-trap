@@ -32,3 +32,6 @@ var drawMap = function drawMap() {
 }
 
 google.maps.event.addDomListener(window, 'load', drawMap);
+$(document).ajaxStop(drawMap);
+
+console.log("Hello, world!")
