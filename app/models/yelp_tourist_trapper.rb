@@ -2,16 +2,14 @@ class YelpTouristTrapper
   require 'csv'
   require 'geo-distance'
   
-  attr_accessor :coords, :neighborhoods, :tourist_traps, :chains, :famous_locations
+  attr_accessor :coords, :neighborhood, :tourist_traps, :chains, :famous_locations
   attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
   include NeighborhoodParser::InstanceMethods
-  include YelpTouristTrapperHelper::InstanceMethods
-  extend YelpTouristTrapperHelper::ClassMethods
 
   LOCALE = {lang: "en", cc: "US"}
-  RADIUS = 200
+  RADIUS = 300
   LOCATION = "New York"  
   CATEGORIES = [
     "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
@@ -30,16 +28,16 @@ class YelpTouristTrapper
     neighborhood = parse_neighborhood(neighborhood)
 
     CATEGORIES.each do |category|
-      params = {category_filter: category, radius_filter: 300}
+      params = {category_filter: category, radius_filter: RADIUS}
       results = Yelp.client.search(neighborhood, params, LOCALE)
-      self.send(category+"=", results.total)
+      names = results.businesses.collect{|b| b.name}
       self.coords = get_coords(results)
+      self.send(category+"=", names)
     end
 
-    self.neighborhoods << neighborhood
-    binding.pry
+    self.neighborhood = neighborhood
     build_famous_locations_data
-    build_chains_data(neighborhood)
+    build_chains_data
     self
   end
 
@@ -55,23 +53,15 @@ class YelpTouristTrapper
     end
   end
 
-  def build_chains_data(location)
+  def build_chains_data
     self.class.chains.each do |chain|
       params = {term: chain, limit: 5, radius_filter: RADIUS}
-      if location.class == Hash
-        results = Yelp.client.search_by_coordinates(location, params, LOCALE)
-      else
-        results = Yelp.client.search(location, params, LOCALE)
-      end
+      results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
       matches = business_names.select{|bn| bn == chain}.size
       self.chains << {name: chain, count: matches}
     end      
   end
-
-  def get_neighborhoods
-    self.tourist_traps.collect { |trap| trap.location.neighborhoods }.flatten.uniq
-  end  
 
   def get_coords(results)
     {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
