@@ -13,7 +13,7 @@ class Tag
   def get_tourist_instagrams(tag)
     pics = client.tag_recent_media(tag)
     if pics.collect{|pic| pic["tags"].include?("selfie")}
-      instagrams = pics.collect {|pic| pic["tags"].include?("selfie")}
+      instagrams = selfie_array.collect {|pic| pic["images"]["standard_resolution"]["url"]}
     elsif pics.collect {|pic| pic["tags"].include?(tag)}
       instagrams = pics.collect{|pic| pic["tags"].include?(tag)}
     else
