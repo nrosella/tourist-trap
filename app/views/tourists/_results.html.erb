@@ -73,6 +73,9 @@
   <span class="badge">
     <%= @results.famous_locations.count %></span>
   Famous Locations </li>
+<div class="btn btn-primary btn-lg", id="tourists">
+<%= content_tag(:button, "Show me the tourists!", :type=>:submit, :remote=>:true) %>
+</div>
 
 
   <h1>Giving it an overall tourist rating of: </h1>
