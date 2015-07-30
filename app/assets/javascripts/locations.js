@@ -1,0 +1,1 @@
+console.log(gon.locations) if gon
