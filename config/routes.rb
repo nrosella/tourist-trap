@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   # You can have the root of your site routed with "root"
   root 'tourists#index'
+  post 'get_images' => 'tourists#get_images'
 
   get 'maps/new' => 'maps#new'
   post 'maps' => 'maps#create'

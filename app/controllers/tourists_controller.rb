@@ -12,14 +12,21 @@ class TouristsController < ApplicationController
     @results.search_by_neighborhood(neighborhood)
     @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
     @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
-    @instagrams = Tag.new.get_tourist_instagrams(@tag_creator)
-    binding.pry
 
     respond_to do |format|
       format.html {render :results}
       format.js 
     end
+  end
 
+  # pass @tag_creator into params through your button_to
+  def get_images
+    @instagrams = Tag.new.get_tourist_instagrams(params["tag_creator"])
+  
+    respond_to do |format|
+      format.html {render :results}
+      format.js
+    end
   end
 
   def show
