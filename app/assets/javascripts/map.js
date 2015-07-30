@@ -29,17 +29,6 @@ var drawMap = function drawMap() {
 
   // Draws heatmap
   heatmap.setMap(map);
-
-  // Draws markers
-  for (var i = 0; i < gon.locations.length; i++) {
-    location = gon.locations[i];
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(location.latitude, location.longitude),
-      map: map,
-      title: location.name,
-      animation: google.maps.Animation.DROP
-    });
-  };
 }
 
 google.maps.event.addDomListener(window, 'load', drawMap);
