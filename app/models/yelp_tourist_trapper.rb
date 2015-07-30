@@ -18,7 +18,6 @@ class YelpTouristTrapper
    
   def initialize   
     @coords = {}   
-    @neighborhoods = []
     @chains = []
     @famous_locations = []
   end 
