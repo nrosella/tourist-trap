@@ -30,7 +30,7 @@ class YelpTouristTrapper
     neighborhood = parse_neighborhood(neighborhood)
 
     CATEGORIES.each do |category|
-      params = {category_filter: category, radius_filter: 500}
+      params = {category_filter: category, radius_filter: 300}
       results = Yelp.client.search(neighborhood, params, LOCALE)
       self.send(category+"=", results.total)
       self.coords = get_coords(results)
@@ -39,7 +39,7 @@ class YelpTouristTrapper
     self.neighborhoods << neighborhood
     binding.pry
     build_famous_locations_data
-    build_chains_data(location)
+    build_chains_data(neighborhood)
     self
   end
 
