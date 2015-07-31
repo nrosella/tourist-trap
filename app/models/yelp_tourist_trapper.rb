@@ -48,17 +48,24 @@ class YelpTouristTrapper
       else
         self.send(category+"=", [])      
       end   
-
     end
-
     self.neighborhood = neighborhood
     build_famous_locations_data
     build_chains_data
+    filter_locations    
     self
   end
 
   def score
     self.locations.inject(0) { |sum, location| sum + location.rating}
+  end
+
+  def filter_locations
+    self.locations = self.locations.select do |location|
+      args = [self.coords[:latitude], self.coords[:longitude], location.latitude, location.longitude]
+      dist = GeoDistance::Haversine.geo_distance(*args).meters
+      dist < RADIUS
+    end
   end
 
   def build_famous_locations_data
