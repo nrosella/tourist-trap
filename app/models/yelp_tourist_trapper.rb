@@ -3,7 +3,7 @@ class YelpTouristTrapper
   require 'geo-distance'
   
   attr_accessor :latitude, :longitude, :neighborhood, :chains, :famous_locations, :locations
-  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs, :museums
+  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs, :museums,
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
   include NeighborhoodParser::InstanceMethods
@@ -62,7 +62,7 @@ class YelpTouristTrapper
       "WARNING: PEAK TOURISTICITY LEVELS REACHED"
     elsif self.score >= 400
       "High Touristicity, Dress Code: Selfie Sticks, Fannie Packs, I ❤ NY shirts"
-    elsif self.score => 200 && self.score <= 300
+    elsif self.score >= 200
       "Medium Touristicity, Mom & Dad approved"
     else
       "Optimal Touristicity Achieved"
