@@ -72,7 +72,7 @@ class YelpTouristTrapper
       business_names = results.businesses.collect{|b| b.name}
       results.businesses.each do |b|
         if b.location.respond_to?(:coordinate)
-          self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude)
+          self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude, 3)
         end
       end
       matches = business_names.select{|bn| bn == chain}.size
@@ -84,11 +84,7 @@ class YelpTouristTrapper
     {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
   end    
 
-  def get_rating(category)
-  CATEGORIES = [
-    "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
-    "amusementparks","bikerentals","zoos","aquariums","boatcharters","hotels",
-    "trainstations","pedicabs","travelservices","localflavor"]    
+  def get_rating(category)  
     case category
     when "ticketsales"
     when "magicians"
