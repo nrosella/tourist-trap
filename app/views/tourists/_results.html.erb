@@ -78,6 +78,9 @@
 <%= button_to "See the Tourists!", get_images_path(tag_creator: @tag_creator), remote: true, class: " btn btn-primary btn-lg", type: "button" %>
 </div> 
 
-
+<%= form_for @neighborhood, :url => maps_path, method: :post do |f| %>
+  <%= f.hidden_field :id %>
+  <%= f.submit %>
+<% end %>
   <h1>Giving it an overall tourist rating of: </h1>
 </div>
