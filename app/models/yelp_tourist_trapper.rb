@@ -3,7 +3,7 @@ class YelpTouristTrapper
   require 'geo-distance'
   
   attr_accessor :latitude, :longitude, :neighborhood, :chains, :famous_locations, :locations
-  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs
+  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
   include NeighborhoodParser::InstanceMethods
