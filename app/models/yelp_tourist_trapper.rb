@@ -32,10 +32,10 @@ class YelpTouristTrapper
     neighborhood = parse_neighborhood(neighborhood)
 
     CATEGORIES.each do |category|
+      self.send(category+"=", [])   
       params = {category_filter: category, radius_filter: RADIUS, sort: 1}
       results = Yelp.client.search(neighborhood, params, LOCALE)
       set_coords(results)
-
       if !results.businesses.empty?
         businesses = results.businesses
         results.businesses.each do |b|
@@ -44,9 +44,7 @@ class YelpTouristTrapper
             self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude, rating)
             self.send(category+"=", results.businesses.collect{|b| b.name})
           end
-        end
-      else
-        self.send(category+"=", [])      
+        end 
       end   
     end
     self.neighborhood = neighborhood
@@ -76,7 +74,7 @@ class YelpTouristTrapper
       results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
       results.businesses.each do |b|
-        if b.location.respond_to?(:coordinate)
+        if b.location.respond_to?(:coordinate) && within_radius?(b.location.coordinate.latitude, b.location.coordinate.longitude)
           self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude, 3)
         end
       end
@@ -93,6 +91,7 @@ class YelpTouristTrapper
   def get_rating(category)  
     case category
     when "ticketsales"
+      3
     when "magicians"
       5
     when "tours"
