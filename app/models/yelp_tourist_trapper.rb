@@ -3,7 +3,7 @@ class YelpTouristTrapper
   require 'geo-distance'
   
   attr_accessor :latitude, :longitude, :neighborhood, :chains, :famous_locations, :locations
-  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
+  attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs, :museums
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
   include NeighborhoodParser::InstanceMethods
@@ -55,6 +55,18 @@ class YelpTouristTrapper
 
   def score
     self.locations.inject(0) { |sum, location| sum + location.rating}
+  end
+
+  def score_message
+    if self.score >= 500
+      "WARNING: PEAK TOURISTICITY LEVELS REACHED"
+    elsif self.score >= 400
+      "High Touristicity, Dress Code: Selfie Sticks, Fannie Packs, I ❤ NY shirts"
+    elsif self.score => 200 && self.score <= 300
+      "Medium Touristicity, Mom & Dad approved"
+    else
+      "Optimal Touristicity Achieved"
+    end
   end
 
   def within_radius?(lat, long)
