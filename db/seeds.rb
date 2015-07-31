@@ -28,6 +28,7 @@
 			manhattan_neighborhoods.flatten.each do |n|
 				Neighborhood.create(:name => n, :borough_id => 3)
 			end
+			binding.pry
 		end
 	rescue IOError => e
 	end

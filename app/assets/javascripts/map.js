@@ -8,7 +8,10 @@ var drawMap = function drawMap() {
   // creates array of gooogle maps LatLngs 
   for (var i = 0; i < gon.locations.length; i++) {
     location = gon.locations[i];
-    endPoint = new google.maps.LatLng(location.latitude, location.longitude);
+    endPoint = {
+      location: new google.maps.LatLng(location.latitude, location.longitude),
+       weight: location.rating
+     };
     heatMapData.push(endPoint);
   };
 

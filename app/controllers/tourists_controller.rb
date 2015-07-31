@@ -7,9 +7,9 @@ class TouristsController < ApplicationController
   end
 
   def create
-    neighborhood = Neighborhood.find(params[:neighborhood][:id]).name
+    @neighborhood = Neighborhood.find(params[:neighborhood][:id])
     @results = YelpTouristTrapper.new
-    @results.search_by_neighborhood(neighborhood)
+    @results.search_by_neighborhood(@neighborhood.name)
     @tag_creator = TagCreator.new.convert_hash_to_tag(@results)
     @instagram_tags = Tag.new.get_count_for_tag(@tag_creator)
 
