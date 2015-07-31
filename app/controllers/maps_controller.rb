@@ -11,7 +11,7 @@ class MapsController < ApplicationController
     gon.locations = ytt.locations
     gon.latitude = ytt.coords[:latitude]
     gon.longitude = ytt.coords[:longitude]
-    render 'map'
+    render 'maps/map'
   end
 
   def index
