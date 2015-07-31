@@ -57,6 +57,10 @@ class YelpTouristTrapper
     self
   end
 
+  def score
+    self.locations.inject(0) { |sum, location| sum + location.rating}
+  end
+
   def build_famous_locations_data
     latitude = self.coords[:latitude]
     longitude = self.coords[:longitude]
