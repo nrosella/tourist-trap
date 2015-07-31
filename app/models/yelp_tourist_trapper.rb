@@ -2,7 +2,7 @@ class YelpTouristTrapper
   require 'csv'
   require 'geo-distance'
   
-  attr_accessor :coords, :neighborhood, :chains, :famous_locations, :locations
+  attr_accessor :latitude, :longitude, :neighborhood, :chains, :famous_locations, :locations
   attr_accessor :ticketsales, :magicians, :tours, :landmarks, :giftshops, :souvenirs,
   :amusementparks, :bikerentals, :zoos, :aquariums, :boatcharters, :hotels, :trainstations, :pedicabs, :travelservices, :localflavor
 
@@ -34,17 +34,17 @@ class YelpTouristTrapper
     CATEGORIES.each do |category|
       params = {category_filter: category, radius_filter: RADIUS, sort: 1}
       results = Yelp.client.search(neighborhood, params, LOCALE)
+      set_coords(results)
 
       if !results.businesses.empty?
-        names = results.businesses.collect{|b| b.name}
+        businesses = results.businesses
         results.businesses.each do |b|
-          if b.location.respond_to?(:coordinate)
+          if b.location.respond_to?(:coordinate) && within_radius?(b.location.coordinate.latitude, b.location.coordinate.longitude)
             rating = get_rating(category)
             self.locations << Location.new(b.name, b.location.coordinate.latitude, b.location.coordinate.longitude, rating)
+            self.send(category+"=", results.businesses.collect{|b| b.name})
           end
         end
-        self.coords = get_coords(results)
-        self.send(category+"=", names)
       else
         self.send(category+"=", [])      
       end   
@@ -52,7 +52,6 @@ class YelpTouristTrapper
     self.neighborhood = neighborhood
     build_famous_locations_data
     build_chains_data
-    filter_locations    
     self
   end
 
@@ -60,23 +59,14 @@ class YelpTouristTrapper
     self.locations.inject(0) { |sum, location| sum + location.rating}
   end
 
-  def filter_locations
-    self.locations = self.locations.select do |location|
-      args = [self.coords[:latitude], self.coords[:longitude], location.latitude, location.longitude]
-      dist = GeoDistance::Haversine.geo_distance(*args).meters
-      dist < RADIUS
-    end
+  def within_radius?(lat, long)
+    dist = GeoDistance::Haversine.geo_distance(self.latitude, self.longitude, lat, long).meters
+    dist < RADIUS
   end
 
   def build_famous_locations_data
-    latitude = self.coords[:latitude]
-    longitude = self.coords[:longitude]
     self.class.famous_locations.each do |fl|
-      params = [latitude, longitude, fl[:latitude], fl[:longitude]]
-      dist = GeoDistance::Haversine.geo_distance(*params).meters
-      if dist < RADIUS
-        self.famous_locations << fl[:name]
-      end
+      self.famous_locations << fl[:name] if within_radius?(fl[:latitude], fl[:longitude])
     end
   end
 
@@ -95,8 +85,9 @@ class YelpTouristTrapper
     end      
   end
 
-  def get_coords(results)
-    {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
+  def set_coords(results)
+    self.latitude = results.region.center.latitude
+    self.longitude = results.region.center.longitude
   end    
 
   def get_rating(category)  

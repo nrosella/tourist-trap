@@ -73,6 +73,10 @@
   <span class="badge">
     <%= @results.famous_locations.count %></span>
   Famous Locations </li>
+<li class="list-group-item">
+  <span class="badge">
+    <%= @results.chains.count %></span>
+  Chain Restaurants </li>  
 
 <div id="tourists" class="form">
   <div class="form-group">
@@ -86,5 +90,5 @@
     <%= f.submit "See Heatmap", class: "btn btn-primary btn-lg" %>
   </div>
 <% end %>
-  <h1>Giving it an overall tourist rating of: </h1>
+  <h1>Giving it an overall tourist rating of: <%= @results.score %></h1>
 </div>
