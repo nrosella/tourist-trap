@@ -15,6 +15,10 @@ class YelpTouristTrapper
     "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
     "amusementparks","bikerentals","zoos","aquariums","boatcharters","hotels",
     "trainstations","pedicabs","travelservices","localflavor"]
+  CHAINS = [
+    "TGI Friday's","t.g.i. friday's","Olive Garden Italian Restaurant",
+    "Sbarro","Subway","Hooter's","Auntie Anne's","Europa Cafe","Pret A Manger",
+    "Chili's","Red Lobster","Applebee's","Haagen-Dazs","Apple Store"]
    
   def initialize   
     @coords = {}   
@@ -66,7 +70,7 @@ class YelpTouristTrapper
   end
 
   def build_chains_data
-    self.class.chains.each do |chain|
+    CHAINS.each do |chain|
       params = {term: chain, limit: 5, radius_filter: RADIUS}
       results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
@@ -100,6 +104,7 @@ class YelpTouristTrapper
     when "amusementparks"
       5
     when "bikerentals"
+      5
     when "zoos"
       5
     when "aquariums"
@@ -120,18 +125,19 @@ class YelpTouristTrapper
   end
 
   # class methods
-  def self.categories    
-    CSV.foreach("app/models/tourist_traps/categories.csv").first.join(",")
-  end    
-   
-  def self.chains    
-    CSV.foreach("app/models/tourist_traps/chains.csv").first   
-  end    
-   
   def self.famous_locations    
-    CSV.foreach("lib/assets/famous_locations.csv").with_object([]) do |row, arr|
-      arr << {name: row[0], latitude: row[1].to_f, longitude: row[2].to_f}
+    fl_path = File.join(Rails.root, 'lib/assets/famous_locations.csv')
+    famous_locations = []
+    begin
+      open(fl_path) do |f|
+        famous_locations = CSV.parse f
+      end
+    rescue IOError => e
     end      
+
+    famous_locations.collect do |row| 
+      {name: row[0], latitude: row[1].to_f, longitude: row[2].to_f}
+    end
   end  
 
 
