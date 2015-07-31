@@ -84,10 +84,7 @@ class YelpTouristTrapper
   end    
 
 
-  # class methods
-  def self.categories    
-    CSV.foreach("app/models/tourist_traps/categories.csv").first.join(",")
-  end    
+  # class methods  
    
   def self.chains    
     CSV.foreach("app/models/tourist_traps/chains.csv").first   
