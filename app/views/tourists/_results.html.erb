@@ -74,13 +74,17 @@
     <%= @results.famous_locations.count %></span>
   Famous Locations </li>
 
-<div id="tourists">
-<%= button_to "See the Tourists!", get_images_path(tag_creator: @tag_creator), remote: true, class: " btn btn-primary btn-lg", type: "button" %>
+<div id="tourists" class="form">
+  <div class="form-group">
+    <%= button_to "See the Tourists!", get_images_path(tag_creator: @tag_creator), remote: true, class: " btn btn-primary btn-lg", type: "button" %>
+  </div>
 </div> 
 
-<%= form_for @neighborhood, :url => maps_path, method: :post do |f| %>
+<%= form_for @neighborhood, :url => maps_path, method: :post, class: "form" do |f| %>
   <%= f.hidden_field :id %>
-  <%= f.submit %>
+  <div class="form-group">
+    <%= f.submit "See Heatmap", class: "btn btn-primary btn-lg" %>
+  </div>
 <% end %>
   <h1>Giving it an overall tourist rating of: </h1>
 </div>
