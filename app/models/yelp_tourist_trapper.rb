@@ -69,7 +69,7 @@ class YelpTouristTrapper
   end
 
   def build_chains_data
-    CHAINS.chains.each do |chain|
+    CHAINS.each do |chain|
       params = {term: chain, limit: 5, radius_filter: RADIUS}
       results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
@@ -86,11 +86,20 @@ class YelpTouristTrapper
   def get_coords(results)
     {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
   end    
-
+   
   def self.famous_locations    
-    CSV.foreach("lib/assets/famous_locations.csv").with_object([]) do |row, arr|
-      arr << {name: row[0], latitude: row[1].to_f, longitude: row[2].to_f}
+    fl_path = File.join(Rails.root, 'lib/assets/famous_locations.csv')
+    famous_locations = []
+    begin
+      open(fl_path) do |f|
+        famous_locations = CSV.parse f
+      end
+    rescue IOError => e
     end      
+
+    famous_locations.collect do |row| 
+      {name: row[0], latitude: row[1].to_f, longitude: row[2].to_f}
+    end
   end  
 
 
