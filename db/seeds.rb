@@ -5,8 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-brooklyn_neighborhoods = CSV.foreach("lib/neighborhoods/brooklyn.csv").first
-manhattan_neighborhoods = CSV.foreach("lib/neighborhoods/manhattan.csv").first
+brooklyn_path = File.join(Rails.root, 'lib/neighborhoods/brooklyn.csv')
+brooklyn_neighborhoods = CSV.foreach(brooklyn_path).first
+manhattan_path = File.join(Rails.root, 'lib/neighborhoods/manhattan.csv')
+manhattan_neighborhoods = CSV.foreach(manhattan_path).first
 
 brooklyn =  brooklyn_neighborhoods.each do |n|
               Neighborhood.create(:name => n, :borough_id => 2)
