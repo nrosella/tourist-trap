@@ -9,8 +9,8 @@ class MapsController < ApplicationController
     neighborhood = Neighborhood.find(params[:neighborhood][:id]).name
     ytt = YelpTouristTrapper.new.search_by_neighborhood(neighborhood)
     gon.locations = ytt.locations
-    gon.latitude = ytt.coords[:latitude]
-    gon.longitude = ytt.coords[:longitude]
+    gon.latitude = ytt.latitude
+    gon.longitude = ytt.longitude
     render 'map'
   end
 
