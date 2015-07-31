@@ -75,6 +75,10 @@
   Famous Locations </li>
 <li class="list-group-item">
   <span class="badge">
+    <%= @results.museums.count %></span>
+  Famous Locations </li>  
+<li class="list-group-item">
+  <span class="badge">
     <%= @results.chains.count %></span>
   Chain Restaurants </li>  
 
@@ -91,4 +95,5 @@
   </div>
 <% end %>
   <h1>Giving it an overall tourist rating of: <%= @results.score %></h1>
+  <h2><%= @results.score_message %></h2>
 </div>
