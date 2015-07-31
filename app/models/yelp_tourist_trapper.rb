@@ -15,6 +15,10 @@ class YelpTouristTrapper
     "ticketsales","magicians","tours","landmarks","giftshops","souvenirs",
     "amusementparks","bikerentals","zoos","aquariums","boatcharters","hotels",
     "trainstations","pedicabs","travelservices","localflavor"]
+  CHAINS = [
+    "TGI Friday's","t.g.i. friday's","Olive Garden Italian Restaurant",
+    "Sbarro","Subway","Hooter's","Auntie Anne's","Europa Cafe","Pret A Manger",
+    "Chili's","Red Lobster","Applebee's","Haagen-Dazs","Apple Store"]
    
   def initialize   
     @coords = {}   
@@ -65,7 +69,7 @@ class YelpTouristTrapper
   end
 
   def build_chains_data
-    self.class.chains.each do |chain|
+    CHAINS.chains.each do |chain|
       params = {term: chain, limit: 5, radius_filter: RADIUS}
       results = Yelp.client.search(self.neighborhood, params, LOCALE)
       business_names = results.businesses.collect{|b| b.name}
@@ -83,13 +87,6 @@ class YelpTouristTrapper
     {latitude: results.region.center.latitude, longitude: results.region.center.longitude}
   end    
 
-
-  # class methods  
-   
-  def self.chains    
-    CSV.foreach("app/models/tourist_traps/chains.csv").first   
-  end    
-   
   def self.famous_locations    
     CSV.foreach("lib/assets/famous_locations.csv").with_object([]) do |row, arr|
       arr << {name: row[0], latitude: row[1].to_f, longitude: row[2].to_f}
