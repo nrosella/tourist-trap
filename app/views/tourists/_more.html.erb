@@ -1,0 +1,20 @@
+<div class="col-lg-12 scroll-flow">
+	<div class="form">
+   <div class="form-group">
+   	 <h2>Giving it an overall tourist rating of:<strong> <%= @results.score %></strong></h2>
+	   <h3><%= @results.score_message %></h3>
+     	<%= button_to "See recent Instagram photos from this location", get_images_path(tag_creator: @tag_creator), remote: true, class: " btn btn-primary btn-lg", type: "button", style: "width: 100%;" %>
+   </div>
+ 	</div> 
+ 	<div class="form" id="heat">
+   <div class="form-group">
+	 <%= form_for @neighborhood, :url => maps_path, method: :post, class: "form" do |f| %>
+	    <%= f.hidden_field :id %>
+	    <div class="form-group">
+	      <%= f.submit "See Heatmap", class: "btn btn-primary btn-lg", style: "width: 100%;"%>
+	    </div>
+	  <% end %>
+	  </div>
+	 </div>
+</div>
+

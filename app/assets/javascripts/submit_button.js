@@ -20,11 +20,13 @@ $(function(){
   });
 
    $(document).ready(function(){
+    $('#results-text').hide()
    	$("#search-again").hide();
     $(".load").hide();
    }).ajaxStart(function () {
        $(".load").show();
     }).ajaxStop(function () {
+      $('#results-text').show()
       $("#search-again").show();
       $(".load").hide();
    });
