@@ -50,6 +50,15 @@ audio:not([controls]) {
 template {
   display: none;
 }
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 a {
   background-color: transparent;
 }
@@ -195,6 +204,15 @@ td,
 th {
   padding: 0;
 }
+div#tourists {
+    width: 500px;
+    height: 500px;
+    overflow: scroll;
+}
+p#instagram-list {
+  pading-bottom: 10px;
+}
+
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,

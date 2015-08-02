@@ -1,95 +1,81 @@
 <div class="col-lg-12">
-<h1>And the results are in!</h1>
-<h2>  <%= @results.neighborhood%> has the following tourist attractions: </h2>
-<ul class="list-group">
-
-<li class="list-group-item">
-  <span class="badge">
-  <%= @instagram_tags %></span>
-    Instagram tags </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.landmarks.count %></span>
-  Landmarks </li>
-<li class="list-group-item">
-  <span class="badge"><%= @results.tours.count %></span>
-    Tours </li>
-<li class="list-group-item">
-  <span class="badge">
-  <%= @results.magicians.count %></span>
-    Magicians </li>
-<li class="list-group-item">
-  <span class="badge"><%= @results.giftshops.count %></span>
-    Gift Shops </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.souvenirs.count %></span>
-    Souvenir Shops </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.ticketsales.count %></span>
-    Ticket Sales </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.amusementparks.count %></span>
-    Amusement Parks </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.bikerentals.count %></span>
-    Bike Rentals </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.zoos.count %></span>
-    Zoos </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.aquariums.count %></span>
-    Aquariam </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.boatcharters.count %></span>
-    Boat Charters </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.hotels.count %></span>
-    Hotels </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.trainstations.count %></span>
-    Train Stations </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.pedicabs.count %></span>
-    Pedicab Station </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.travelservices.count %></span>
-    Travel Services </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.localflavor.count %></span>
-    Local Flavor </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.famous_locations.count %></span>
-  Famous Locations </li>
-<li class="list-group-item">
-  <span class="badge">
-    <%= @results.chains.count %></span>
-  Chain Restaurants </li>
-
-<div id="tourists" class="form">
-  <div class="form-group">
-    <%= button_to "See recent instagram photos from this location", get_images_path(tag_creator: @tag_creator), remote: true, class: " btn btn-primary btn-lg", type: "button" %>
-  </div>
-</div> 
-
-<%= form_for @neighborhood, :url => maps_path, method: :post, class: "form" do |f| %>
-  <%= f.hidden_field :id %>
-  <div class="form-group">
-    <%= f.submit "See Heatmap", class: "btn btn-primary btn-lg" %>
-  </div>
-<% end %>
-  <h1>Giving it an overall tourist rating of: <%= @results.score %></h1>
-  <h2><%= @results.score_message %></h2>
+  <h2><%= @results.neighborhood%> has the following tourist attractions:</h2>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="badge"><%= @instagram_tags %></span>
+        Instagram tags 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.landmarks.count %></span>
+        Landmarks 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.tours.count %></span>
+        Tours 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.magicians.count %></span>
+        Magicians 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.giftshops.count %></span>
+        Gift Shops 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.souvenirs.count %></span>
+        Souvenir Shops 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.ticketsales.count %></span>
+        Ticket Sales 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.amusementparks.count %></span>
+        Amusement Parks 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.bikerentals.count %></span>
+        Bike Rentals 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.zoos.count %></span>
+        Zoos 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.aquariums.count %></span>
+        Aquariam 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.boatcharters.count %></span>
+        Boat Charters 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.hotels.count %></span>
+        Hotels 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.trainstations.count %></span>
+        Train Stations 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.pedicabs.count %></span>
+        Pedicab Station 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.travelservices.count %></span>
+        Travel Services 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.localflavor.count %></span>
+        Local Flavor 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.famous_locations.count %></span>
+        Famous Locations 
+    </li>
+    <li class="list-group-item">
+      <span class="badge"><%= @results.chains.count %></span>
+        Chain Restaurants 
+    </li>
+  </ul>
 </div>
